@@ -1,0 +1,6 @@
+.borders {
+  @apply border
+    border-solid
+    rounded
+  border-gray-500;
+}
