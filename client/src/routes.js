@@ -3,7 +3,8 @@ import { Basket } from "./pages/Basket";
 import { Shop } from "./pages/Shop";
 import { Auth } from "./pages/Auth";
 
-import { ProductPage } from "./pages/ProductPage";
+import { Categories } from "./pages/Categories";
+import { CategoryProducts } from "./pages/CategoryProducts";
 
 import {
   ADMIN_ROUTE,
@@ -12,6 +13,7 @@ import {
   LOGIN_ROUTE,
   REGISTRATION_ROUTE,
   PRODUCT_ROUTE,
+  CATEGORY_ROUTE,
 } from "./utils/consts";
 
 export const authRoutes = [
@@ -39,7 +41,12 @@ export const publicRoutes = [
     Component: <Auth />,
   },
   {
-    path: PRODUCT_ROUTE + "/:id",
-    Component: <ProductPage />,
+    path: CATEGORY_ROUTE + "/:id",
+    Component: <Categories />,
   },
+  {
+    path: PRODUCT_ROUTE + "/:id",
+    Component: <CategoryProducts />,
+  },
+
 ];

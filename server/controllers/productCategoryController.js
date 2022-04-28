@@ -6,13 +6,13 @@ const ApiError = require("../error/ApiError");
 class ProductCategoryController {
   async create(req, res, next) {
     try {
-      const { category_name } = req.body;
+      const { category } = req.body;
       const { img } = req.files;
       let fileName = uuid.v4() + ".jpg";
       img.mv(path.resolve(__dirname, "..", "static", fileName));
 
       const productCategory = await ProductCategory.create({
-        category_name,
+        category,
         img: fileName,
       });
       return res.json(productCategory);
@@ -39,13 +39,13 @@ class ProductCategoryController {
   async put(req, res, next) {
     try {
       const { id } = req.params;
-      const { category_name, price, description } = req.body;
+      const { category, price, description } = req.body;
       const { img } = req.files;
       let fileName = uuid.v4() + ".jpg";
       img.mv(path.resolve(__dirname, "..", "static", fileName));
       const productCategory = await (
         await ProductCategory.findOne({ where: { id } })
-      ).update({ category_name, price, description, img: fileName });
+      ).update({ category, price, description, img: fileName });
 
       return res.json(productCategory);
     } catch (e) {
@@ -56,11 +56,13 @@ class ProductCategoryController {
   async delete(req, res, next) {
     try {
       const { id } = req.params;
-      const productCategory = await (await ProductCategory.findOne({ where: { id } }));
-      if(id) {
+      const productCategory = await await ProductCategory.findOne({
+        where: { id },
+      });
+      if (id) {
         productCategory.destroy();
       }
-      return res.json({message: "row deleted successfully"})
+      return res.json({ message: "row deleted successfully" });
     } catch (e) {
       next(ApiError.badRequest(e.message));
     }

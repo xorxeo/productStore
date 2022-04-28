@@ -42,7 +42,7 @@ export const NavBar = observer(() => {
         <div className="ml-auto">
           <NavLink to={LOGIN_ROUTE}>
             <button className="pr-3 pl-3 pb-1 pt-1  shadow-sm border rounded-md font-sans text-l text-white hover:scale-110 ease-in-out" onClick={() => user.setIsAuth(true)}>
-              LOGINN/SIGIN
+              LOGIN/SIGNIN
             </button>
           </NavLink>
         </div>

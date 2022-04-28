@@ -5,7 +5,7 @@ const { DataTypes, UUID, UUIDV1 } = require("sequelize");
 const User = sequelize.define(
   "user",
   {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, },
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     email: { type: DataTypes.STRING, unique: true },
     password: { type: DataTypes.STRING },
     role: { type: DataTypes.STRING, defaultValue: "USER" },
@@ -27,7 +27,7 @@ const ProductCategory = sequelize.define(
   "product_category",
   {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    category_name: { type: DataTypes.STRING, unique: true, allowNull: false,},
+    category: { type: DataTypes.STRING, unique: true, allowNull: false },
     img: { type: DataTypes.STRING, defaultValue: 1, allowNull: false },
   },
   { freezeTableName: true }
@@ -38,14 +38,6 @@ const ProductItem = sequelize.define(
   {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     product_name: { type: DataTypes.STRING, unique: true, allowNull: false },
-    // category: { type: DataTypes.STRING, allowNull: false, defaultValue: 1, 
-    //             ProductCategoryId: {
-    //               type: DataTypes.INTEGER,
-    //               references: {
-    //                 model: ProductCategory,
-    //                 key: 'id',
-    //               }
-    // }},
     price: { type: DataTypes.INTEGER, allowNull: false },
     description: { type: DataTypes.STRING, allowNull: false },
     rating: { type: DataTypes.INTEGER, defaultValue: 0 },
@@ -60,7 +52,7 @@ const Rating = sequelize.define(
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     rate: { type: DataTypes.INTEGER, allowNull: false },
   },
-  { freezeTableName: true },
+  { freezeTableName: true }
 );
 
 User.belongsTo(Rating);
@@ -69,7 +61,6 @@ User.belongsTo(Rating);
 User.hasMany(UserRefProduct);
 
 ProductCategory.hasMany(ProductItem);
-
 
 ProductItem.hasMany(Rating);
 Rating.belongsTo(ProductItem);

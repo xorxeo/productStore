@@ -8,6 +8,7 @@ export const App = () => {
     <BrowserRouter>
       <NavBar />
       <AppRouter />
+      
     </BrowserRouter>
   );
 };
