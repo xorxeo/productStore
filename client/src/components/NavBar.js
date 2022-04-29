@@ -1,16 +1,17 @@
 import React, { useContext, useTransition } from "react";
 import { Context } from "../index";
-import { NavLink, useLocation } from "react-router-dom";
+import { Navigate, NavLink, useLocation } from "react-router-dom";
 import { Shop } from "../pages/Shop";
 import { Auth } from "../pages/Auth";
 import { Admin } from "../pages/Admin";
-import { ADMIN_ROUTE, SHOP_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE } from "../utils/consts";
+import { ADMIN_ROUTE, SHOP_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, BASKET_ROUTE } from "../utils/consts";
 import { observer } from "mobx-react-lite";
 
 export const NavBar = observer(() => {
   const { user } = useContext(Context);
   const location = useLocation();
   const isLogin = location.pathname === REGISTRATION_ROUTE;
+  user.role = "USER"
   return (
     <div className="navbar flex absolute flex-row w-screen h-fit pr-10 text-l  shadow-slate-500 rounded-b-md  bg-slate-400 hover:shadow-xl ease-in-out 1s">
       <NavLink to={SHOP_ROUTE}>
@@ -19,14 +20,18 @@ export const NavBar = observer(() => {
         </button>
       </NavLink>
 
-      {user.isAuth && (
+      {user.isAuth && user.role === "USER" && (
         <div className="flex space-x-3 ml-auto ">
-          <NavLink to={ADMIN_ROUTE}>
-            <button className="pr-3 pl-3 pb-1 pt-1  shadow-sm border rounded-md font-sans text-l text-white hover:scale-110 ease-in-out">
-              ADMINPANEL
-            </button>
+          
+          <NavLink to={BASKET_ROUTE}>
+            <div className="basket-wrapper grid pl-4 pr-5 transition ease-in-out duration-1000  hover:animate-bounce z-10 "
+                  
+                  >
+              <img className="w-8 h-8" src="../img/basket.webp"></img>
+            </div>
           </NavLink>
-
+        </div>
+      )}
           <NavLink to={SHOP_ROUTE}>
             <button
               className="pr-3 pl-3 pb-1 pt-1  shadow-sm border rounded-md font-sans text-l text-white hover:scale-110 ease-in-out"
@@ -35,8 +40,20 @@ export const NavBar = observer(() => {
               LOGOUT
             </button>
           </NavLink>
+
+      {user.role === "ADMIN" && (
+        <div className="flex space-x-3 ml-auto ">
+          <NavLink to={ADMIN_ROUTE}>
+            <button className="pr-3 pl-3 pb-1 pt-1  shadow-sm border rounded-md font-sans text-l text-white hover:scale-110 ease-in-out">
+              ADMINPANEL
+            </button>
+          </NavLink>
+
+      
         </div>
       )}
+
+
 
       {!user.isAuth && (
         <div className="ml-auto">

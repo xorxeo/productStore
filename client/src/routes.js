@@ -3,8 +3,8 @@ import { Basket } from "./pages/Basket";
 import { Shop } from "./pages/Shop";
 import { Auth } from "./pages/Auth";
 
-import { Categories } from "./pages/Categories";
-import { CategoryProducts } from "./pages/CategoryProducts";
+import { CategoryProducts } from "./components/CategoryProducts";
+import { Products } from "./pages/Product";
 
 import {
   ADMIN_ROUTE,
@@ -41,8 +41,8 @@ export const publicRoutes = [
     Component: <Auth />,
   },
   {
-    path: CATEGORY_ROUTE + "/:id",
-    Component: <Categories />,
+    path: CATEGORY_ROUTE + "/:category",
+    Component: <CategoryProducts />,
   },
   {
     path: PRODUCT_ROUTE + "/:id",

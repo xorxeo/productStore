@@ -4,3 +4,14 @@
     rounded
   border-gray-500;
 }
+
+/* .card-wrapper {
+  @apply 
+  grid relative grid-col-2 w-full h-full rounded-t-lg bg-slate-50 
+  &:hover {
+    .buy-button {
+      @apply visible
+    }
+
+  }
+} */
