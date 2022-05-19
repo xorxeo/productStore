@@ -1,4 +1,7 @@
 require("dotenv").config();
+
+const cookieParser = require('cookie-parser');
+
 const express = require("express");
 const sequelize = require("./db");
 const models = require("./models/models");
@@ -15,6 +18,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, "static")));
 app.use(fileUpload({}));
+app.use(cookieParser(process.env.SECRET_KEY));
 app.use("/api", router);
 
 // Обработка ошибок, последний middleware
@@ -23,7 +27,7 @@ app.use(errorHandler);
 const start = async () => {
   try {
     await sequelize.authenticate();
-    await sequelize.sync({ alter: true });
+    await sequelize.sync();
     app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
   } catch (e) {
     console.log(e);

@@ -2,6 +2,7 @@ import { observer } from "mobx-react-lite";
 import { useNavigate } from "react-router-dom";
 import React, { useContext } from "react";
 import { Context } from "../index";
+import { Counter } from "./Counter";
 
 export const CategoryProducts = observer(() => {
   const { product } = useContext(Context);
@@ -20,7 +21,6 @@ export const CategoryProducts = observer(() => {
               key={product.id}
               className=" card-wrapper group grid relative grid-col-2 w-full h-full rounded-t-lg bg-slate-50 "
             >
-              
               <div className="card-image grid relative justify-center items-center z-0 bg-white rounded-t-lg ">
                 <img
                   key={product.product_name}
@@ -35,30 +35,23 @@ export const CategoryProducts = observer(() => {
                 <div className="description pl-2 font-light">
                   {product.description}
                 </div>
-                
-                <div>
-                <div className="price pl-2 font-semibold">
-                  {product.price} ₽
-                </div>
 
-                  
+                <div>
+                  <div className="price pl-2 font-semibold">
+                    {product.price} ₽
+                  </div>
                 </div>
 
                 <div
-                className="buy-button    absolute bg-slate-400  right-1 bottom-1 transition ease-in-out duration-1000 group-hover:block  group-hover:animate-wiggle z-10   "
-                onClick={() => (
-                  console.log(">>>>>>>>", product.product_name)
-                
-                  )}
-              >
-                <img className="grid w-8 h-8" src="../img/basket.webp"></img>
-              </div>
+                  className="buy-button  absolute bg-slate-400  right-1 bottom-1 transition ease-in-out duration-1000 group-hover:block  group-hover:animate-wiggle z-10   "
+                  onClick={() => console.log(">>>>>>>>", product.product_name)}
+                >
+                  <img className="grid w-8 h-8" src="../img/basket.webp"></img>
+                </div>
 
-              <div className="buy-buttons   z-10">
-                - 1 +
-              </div>
-
-
+                {/* <div className="increment-decrement z-10">
+                  <Counter />
+                </div> */}
               </div>
             </div>
           ))}

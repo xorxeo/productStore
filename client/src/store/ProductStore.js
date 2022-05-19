@@ -38,6 +38,7 @@ export class ProductStore {
     ];
 
     this._selectedCategory = {};
+    this._selectedProductItem = {};
 
     makeAutoObservable(this);
   }
@@ -51,6 +52,9 @@ export class ProductStore {
   setSelectedCategory(category) {
     this._selectedCategory = category;
   }
+  setSelectedProductItem(id) {
+    this._selectedProductItem = id;
+  }
 
   get categoryProduct() {
     return this._categoryProduct;
@@ -60,5 +64,8 @@ export class ProductStore {
   }
   get selectedCategory() {
     return this._selectedCategory;
+  }
+  get selectedProductItem() {
+    return this._selectedProductItem
   }
 }

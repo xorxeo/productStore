@@ -1,7 +1,12 @@
-import React from 'react'
+import React from "react";
+
 
 export const Basket = () => {
+  const basket = [];
+
   return (
-    <div>Basket</div>
-  )
-}
+    <div>
+      Basket
+    </div>
+  );
+};

@@ -1,6 +1,5 @@
 const sequelize = require("../db");
-const uuid = require("uuid");
-const { DataTypes, UUID, UUIDV1 } = require("sequelize");
+const { DataTypes } = require("sequelize");
 
 const User = sequelize.define(
   "user",
@@ -13,12 +12,18 @@ const User = sequelize.define(
   { freezeTableName: true }
 );
 
-const UserRefProduct = sequelize.define(
-  "user_product",
+const Basket = sequelize.define(
+  "basket",
   {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    // user_id: { type: DataTypes.INTEGER, primaryKey: true },
-    // product_item_id: { type: DataTypes.INTEGER, primaryKey: true },
+  },
+  { freezeTableName: true }
+);
+
+const BasketProduct = sequelize.define(
+  "basket_product", 
+  {
+  quantity: { type: DataTypes.INTEGER, defaultValue: 1 },
   },
   { freezeTableName: true }
 );
@@ -49,28 +54,41 @@ const ProductItem = sequelize.define(
 const Rating = sequelize.define(
   "rating",
   {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    // id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     rate: { type: DataTypes.INTEGER, allowNull: false },
   },
   { freezeTableName: true }
 );
 
-User.belongsTo(Rating);
-// Rating.belongsTo(User);
+Basket.belongsToMany(ProductItem, {
+  through: BasketProduct,
+  onDelete: "CASCADE",
+});
+ProductItem.belongsToMany(Basket, {
+  through: BasketProduct,
+  onDelete: "CASCADE",
+});
 
-User.hasMany(UserRefProduct);
+Basket.hasMany(BasketProduct);
+BasketProduct.belongsTo(Basket);
+ProductItem.hasMany(BasketProduct);
+BasketProduct.belongsTo(ProductItem);
 
 ProductCategory.hasMany(ProductItem);
+ProductItem.belongsTo(ProductCategory);
 
 ProductItem.hasMany(Rating);
 Rating.belongsTo(ProductItem);
+User.hasMany(Rating);
+Rating.belongsTo(User);
 
-ProductItem.hasMany(UserRefProduct);
-UserRefProduct.belongsTo(ProductItem);
+ProductItem.belongsToMany(User, { through: Rating, onDelete: "CASCADE" });
+User.belongsToMany(ProductItem, { through: Rating, onDelete: "CASCADE" });
 
 module.exports = {
   User,
-  UserRefProduct,
+  Basket,
+  BasketProduct,
   ProductCategory,
   ProductItem,
   Rating,

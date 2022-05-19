@@ -25,13 +25,11 @@ export const NavBar = observer(() => {
           
           <NavLink to={BASKET_ROUTE}>
             <div className="basket-wrapper grid pl-4 pr-5 transition ease-in-out duration-1000  hover:animate-bounce z-10 "
-                  
+                  // onClick={() => Navigate(BASKET_ROUTE)}
                   >
               <img className="w-8 h-8" src="../img/basket.webp"></img>
             </div>
           </NavLink>
-        </div>
-      )}
           <NavLink to={SHOP_ROUTE}>
             <button
               className="pr-3 pl-3 pb-1 pt-1  shadow-sm border rounded-md font-sans text-l text-white hover:scale-110 ease-in-out"
@@ -40,6 +38,8 @@ export const NavBar = observer(() => {
               LOGOUT
             </button>
           </NavLink>
+        </div>
+      )}
 
       {user.role === "ADMIN" && (
         <div className="flex space-x-3 ml-auto ">
