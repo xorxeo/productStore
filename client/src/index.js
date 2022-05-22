@@ -14,7 +14,10 @@ root.render(
     value={{
       user: new UserStore(),
       product: new ProductStore(),
-      counter: new CounterStore(),
+      basket: [
+        {product_item_id: 2, name: "Bushido", price: 649, quantity: 2},
+        {product_item_id: 3, name: "Azer-Chai", price: 449, quantity: 3},
+      ]
     }}
   >
     <React.StrictMode>
