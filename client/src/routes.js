@@ -4,6 +4,7 @@ import { Shop } from "./pages/Shop";
 import { Auth } from "./pages/Auth";
 
 import { CategoryProducts } from "./components/CategoryProducts";
+import { ProductItem } from "./components/ProductItem";
 import { Products } from "./pages/Product";
 
 import {
@@ -46,7 +47,7 @@ export const publicRoutes = [
   },
   {
     path: PRODUCT_ROUTE + "/:id",
-    Component: <CategoryProducts />,
+    Component: <ProductItem />,
   },
 
 ];

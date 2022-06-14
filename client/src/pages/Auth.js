@@ -56,7 +56,7 @@ export const Auth = observer(() => {
                   : 
                   (
                     <NavLink to={LOGIN_ROUTE}>
-                      <div>Sigin</div>
+                      <div>Sign in</div>
                     </NavLink>
                   )}
                 </div>
@@ -68,7 +68,7 @@ export const Auth = observer(() => {
                     type="submit"
                     className="group w-full flex justify-content-center py-2 px-4 rounded-md shadow-md bg-slate-400 text-white font-medium hover:scale-105 "
                   >
-                    {isLogin ? "Sign in" : "Login"}
+                    {isLogin ? "Sign in" : "Register"}
                   </button>
                 </div>
               }

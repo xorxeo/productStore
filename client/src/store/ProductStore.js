@@ -33,6 +33,7 @@ export class ProductStore {
         category: "Tea",
         product_name: "Azer-Chai",
         price: 449,
+        description: "Чай черный крупнолистовой",
         img: "",
       },
     ];
@@ -52,8 +53,8 @@ export class ProductStore {
   setSelectedCategory(category) {
     this._selectedCategory = category;
   }
-  setSelectedProductItem(id) {
-    this._selectedProductItem = id;
+  setSelectedProductItem(productItem) {
+    this._selectedProductItem = productItem;
   }
 
   get categoryProduct() {
