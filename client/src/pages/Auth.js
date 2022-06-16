@@ -1,6 +1,7 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import { login, registration } from "../http/userAPI";
 import { Context } from "../index";
 import { UserStore } from "../store/UserStore";
 import { LOGIN_ROUTE, REGISTRATION_ROUTE } from "../utils/consts";
@@ -8,6 +9,18 @@ import { LOGIN_ROUTE, REGISTRATION_ROUTE } from "../utils/consts";
 export const Auth = observer(() => {
   const location = useLocation();
   const isLogin = location.pathname === LOGIN_ROUTE;
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const click = async () => {
+    if (isLogin) {
+      const response = await login();
+      console.log('isLogin');
+    } else {
+      const response = await registration();
+      console.log(response);
+    }
+  };
   return (
     <div className="container flex h-screen min-w-full justify-center items-center bg-slate-200 pt-16 pb-16 mx-0 ">
       <div className="flex  flex-col h-fit w-fit pt-16 pb-16 pl-8 pr-8 items-center justify-center bg-slate-300 rounded-lg shadow-xl">
@@ -29,6 +42,8 @@ export const Auth = observer(() => {
                   autoComplete="email"
                   required
                   placeholder="Email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
 
@@ -41,6 +56,8 @@ export const Auth = observer(() => {
                   autoComplete="current-password"
                   required
                   placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
 
@@ -52,9 +69,7 @@ export const Auth = observer(() => {
                     <NavLink to={REGISTRATION_ROUTE}>
                       <div>Register!</div>
                     </NavLink>
-                  ) 
-                  : 
-                  (
+                  ) : (
                     <NavLink to={LOGIN_ROUTE}>
                       <div>Sign in</div>
                     </NavLink>
