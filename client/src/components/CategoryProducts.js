@@ -1,13 +1,21 @@
 import { observer } from "mobx-react-lite";
 import { useLocation, useNavigate } from "react-router-dom";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../index";
 import { PRODUCT_ROUTE } from "../utils/consts";
+import { fetchProductItem } from "../http/categoryAPI";
 
 export const CategoryProducts = observer(() => {
   const { product } = useContext(Context);
   const navigate = useNavigate();
   const location = useLocation();
+  // console.log(product.productItem);
+
+  useEffect(() => {
+   fetchProductItem().then((data) => product.setProductItem(data))
+  // console.log(product)
+  }, [])
+  
 
   return (
     <div className="container flex h-screen min-w-full pt-16 pb-4 mx-0 bg-slate-200">

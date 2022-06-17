@@ -15,8 +15,8 @@ export const App = observer(() => {
       .then((data) => {
         user.setUser(true);
         user.setIsAuth(true);
-        console.log("user.isAuth in check()", user.isAuth);
-        console.log("user.isAuth in check()", user);
+        // console.log("user.isAuth in check()", user.isAuth);
+        // console.log("user.isAuth in check()", user);
        
       })
       .finally(() => setLoading(false));
