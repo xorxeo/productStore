@@ -19,8 +19,14 @@ export const NavBar = observer(() => {
   const isLogin = location.pathname === REGISTRATION_ROUTE;
   const navigate = useNavigate();
 
-  // user.role = "USER";
-  user.role = "ADMIN";
+  const logOut = () => {
+    user.setUser({});
+    user.setIsAuth(false);
+    localStorage.removeItem('token')
+  };
+
+  user.role = "USER";
+  // user.role = "ADMIN";
   return (
     <div className="navbar flex absolute flex-row w-screen h-fit pr-10 text-l  shadow-slate-500 rounded-b-md  bg-slate-400 hover:shadow-xl ease-in-out 1s">
       <NavLink to={SHOP_ROUTE}>
@@ -32,17 +38,14 @@ export const NavBar = observer(() => {
       {user.isAuth && user.role === "USER" && (
         <div className="flex space-x-3 ml-auto ">
           <NavLink to={BASKET_ROUTE}>
-            <div
-              className="basket-wrapper grid pl-4 pr-5 transition ease-in-out duration-1000  hover:animate-bounce z-10 "
-              
-            >
+            <div className="basket-wrapper grid pl-4 pr-5 transition ease-in-out duration-1000  hover:animate-bounce z-10 ">
               <img className="w-8 h-8" src="../img/basket.webp"></img>
             </div>
           </NavLink>
           <NavLink to={SHOP_ROUTE}>
             <button
               className="pr-3 pl-3 pb-1 pt-1  shadow-sm border rounded-md font-sans text-l text-white hover:scale-110 ease-in-out"
-              onClick={() => user.setIsAuth(false)}
+              onClick={() => logOut()}
             >
               LOGOUT
             </button>
@@ -53,23 +56,23 @@ export const NavBar = observer(() => {
       {user.role === "ADMIN" && (
         <div className="flex space-x-3 ml-auto ">
           <NavLink to={ADMIN_ROUTE}>
-            <button 
-              className="pr-3 pl-3 pb-1 pt-1  shadow-sm border rounded-md font-sans text-l text-white hover:scale-110 ease-in-out"
-              
-              >
-                ADMINPANEL
+            <button className="pr-3 pl-3 pb-1 pt-1  shadow-sm border rounded-md font-sans text-l text-white hover:scale-110 ease-in-out">
+              ADMINPANEL
             </button>
           </NavLink>
-          <button 
-              className="pr-3 pl-3 pb-1 pt-1  shadow-sm border rounded-md font-sans text-l text-white hover:scale-110 ease-in-out"
-              onClick={() => {
-                user.setIsAuth(false)
-                navigate(SHOP_ROUTE)
-                console.log("exit from admin panel, user.isAuth >>>", user.isAuth)
-              }}
-              >
-                QUIT
-            </button>
+          <button
+            className="pr-3 pl-3 pb-1 pt-1  shadow-sm border rounded-md font-sans text-l text-white hover:scale-110 ease-in-out"
+            onClick={() => {
+              user.setIsAuth(false);
+              navigate(SHOP_ROUTE);
+              console.log(
+                "exit from admin panel, user.isAuth >>>",
+                user.isAuth
+              );
+            }}
+          >
+            QUIT
+          </button>
         </div>
       )}
 
@@ -78,7 +81,7 @@ export const NavBar = observer(() => {
           <NavLink to={LOGIN_ROUTE}>
             <button
               className="pr-3 pl-3 pb-1 pt-1  shadow-sm border rounded-md font-sans text-l text-white hover:scale-110 ease-in-out"
-              onClick={() => user.setIsAuth(true)}
+              onClick={() => (user.role = "USER")}
             >
               LOGIN/SIGNIN
             </button>

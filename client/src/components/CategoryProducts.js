@@ -2,7 +2,6 @@ import { observer } from "mobx-react-lite";
 import { useLocation, useNavigate } from "react-router-dom";
 import React, { useContext } from "react";
 import { Context } from "../index";
-import { Counter } from "./Counter";
 import { PRODUCT_ROUTE } from "../utils/consts";
 
 export const CategoryProducts = observer(() => {

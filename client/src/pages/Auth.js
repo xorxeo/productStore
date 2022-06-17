@@ -1,24 +1,39 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { login, registration } from "../http/userAPI";
 import { Context } from "../index";
 import { UserStore } from "../store/UserStore";
-import { LOGIN_ROUTE, REGISTRATION_ROUTE } from "../utils/consts";
+import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "../utils/consts";
 
 export const Auth = observer(() => {
+  const { user } = useContext(Context);
   const location = useLocation();
   const isLogin = location.pathname === LOGIN_ROUTE;
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const click = async () => {
-    if (isLogin) {
-      const response = await login();
-      console.log('isLogin');
-    } else {
-      const response = await registration();
-      console.log(response);
+  const click = async (event) => {
+    event.preventDefault();
+    try {
+      let data;
+      if (isLogin) {
+        const response = await login(email, password);
+        console.log("isLogin");
+        
+      } else {
+        const response = await registration(email, password);
+        console.log("in click() registration", response);
+      }
+      user.setUser(user);
+      user.setIsAuth(true);
+      navigate(SHOP_ROUTE);
+
+      console.log("in click() login", user);
+      
+    } catch (e) {
+      alert(e.response.data.message);
     }
   };
   return (
@@ -80,8 +95,8 @@ export const Auth = observer(() => {
               {
                 <div className="flex h-full items-center justify-center py-6 px-4">
                   <button
-                    type="submit"
                     className="group w-full flex justify-content-center py-2 px-4 rounded-md shadow-md bg-slate-400 text-white font-medium hover:scale-105 "
+                    onClick={click}
                   >
                     {isLogin ? "Sign in" : "Register"}
                   </button>
