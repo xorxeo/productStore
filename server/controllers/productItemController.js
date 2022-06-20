@@ -24,9 +24,13 @@ class ProductItemController {
     }
   }
 
-  async getAll(req, res) {
-    const productItems = await ProductItem.findAll();
-    return res.json(productItems);
+  async getAll(req, res, next) {
+    try {
+      const productItems = await ProductItem.findAll();
+      return res.json(productItems);
+    } catch (e) {
+      next(ApiError.badRequest(e.message));
+    }
   }
 
   async getOne(req, res) {
@@ -35,14 +39,14 @@ class ProductItemController {
     return res.json(productItem);
   }
 
-  async delete(req, res) {
+  async delete(req, res, next) {
     try {
       const { id } = req.params;
-      const productItem = await (await ProductItem.findOne({ where: { id } }));
-      if(id) {
+      const productItem = await await ProductItem.findOne({ where: { id } });
+      if (id) {
         productItem.destroy();
       }
-      return res.json({message: "row deleted successfully"})
+      return res.json({ message: "row deleted successfully" });
     } catch (e) {
       next(ApiError.badRequest(e.message));
     }
@@ -65,7 +69,6 @@ class ProductItemController {
     }
   }
 
-
   async patch(req, res, next) {
     try {
       const { id } = req.params;
@@ -75,7 +78,13 @@ class ProductItemController {
       img.mv(path.resolve(__dirname, "..", "static", fileName));
       const productItem = await (
         await ProductItem.findOne({ where: { id } })
-      ).update({ product_name, price, description, img: fileName, productCategoryId });
+      ).update({
+        product_name,
+        price,
+        description,
+        img: fileName,
+        productCategoryId,
+      });
 
       return res.json(productItem);
     } catch (e) {

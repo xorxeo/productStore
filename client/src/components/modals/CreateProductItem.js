@@ -1,11 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
+import { fetchProductItem } from "../../http/categoryAPI";
 import { Context } from "../../index";
 
-export const ModalAddProductItem = ({ show, close }) => {
+export const ModalCreateProductItem = ({ show, close }) => {
   const { product } = useContext(Context);
   // const [selectedCategory, setSelectedCategory] = useState(null);
   // console.log(selectedCategory);
+  useEffect(() => {
+    fetchProductItem().then((data) => {
+      product.setProductItem(data);
+    });
+  }, []);
 
   return (
     <div
@@ -22,8 +28,9 @@ export const ModalAddProductItem = ({ show, close }) => {
         <div className="body">
           <select
             onChange={(e) => {
-              // setSelectedCategory(e.target.value);
+              product.setSelectedCategory(e.target.value);
               console.log(e.target.value);
+              console.log(product);
               // console.log(selectedCategory);
             }}
             defaultValue="Выберете категорию продукта"
@@ -31,9 +38,9 @@ export const ModalAddProductItem = ({ show, close }) => {
           >
             <option disabled>Выберете категорию продукта</option>
             {product &&
-              product.categoryProduct.map((p) => (
-                <option key={p.id} value={p.category}>
-                  {p.category}
+              product.categoryProduct.map((elem) => (
+                <option key={elem.id} value={elem.category}>
+                  {elem.category}
                 </option>
               ))}
           </select>
@@ -61,7 +68,13 @@ export const ModalAddProductItem = ({ show, close }) => {
           >
             Cancel
           </button>
-          <button onClick={(e) => e.stopPropagation()}>Add</button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            Add
+          </button>
         </div>
       </div>
     </div>

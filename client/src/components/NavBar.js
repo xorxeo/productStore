@@ -25,8 +25,8 @@ export const NavBar = observer(() => {
     localStorage.removeItem('token')
   };
 
-  user.role = "USER";
-  // user.role = "ADMIN";
+  // user.role = "USER";
+  user.role = "ADMIN";
   return (
     <div className="navbar flex absolute flex-row w-screen h-fit pr-10 text-l  shadow-slate-500 rounded-b-md  bg-slate-400 hover:shadow-xl ease-in-out 1s">
       <NavLink to={SHOP_ROUTE}>

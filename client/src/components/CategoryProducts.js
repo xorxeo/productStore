@@ -12,8 +12,13 @@ export const CategoryProducts = observer(() => {
   // console.log(product.productItem);
 
   useEffect(() => {
-   fetchProductItem().then((data) => product.setProductItem(data))
-  // console.log(product)
+   fetchProductItem().then((data) => {
+    product.setProductItem(data)
+  //  console.log(data)
+  //  console.log(product.productItem)
+  //  console.log(product.selectedCategory)
+   })
+  
   }, [])
   
 
@@ -23,7 +28,7 @@ export const CategoryProducts = observer(() => {
         {product.productItem
           .filter(
             (productItem) =>
-              productItem.category === product.selectedCategory.category
+              productItem.productCategoryId == product.selectedCategory.category
           )
           .map((filteredProductItem) => (
             <div

@@ -21,7 +21,7 @@ const Basket = sequelize.define(
 );
 
 const BasketProduct = sequelize.define(
-  "basket_product", 
+  "basketProduct", 
   {
   quantity: { type: DataTypes.INTEGER, defaultValue: 1 },
   },
@@ -29,17 +29,17 @@ const BasketProduct = sequelize.define(
 );
 
 const ProductCategory = sequelize.define(
-  "product_category",
+  "productCategory",
   {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     category: { type: DataTypes.STRING, unique: true, allowNull: false },
-    img: { type: DataTypes.STRING, defaultValue: 1, allowNull: false },
+    img: { type: DataTypes.STRING, allowNull: false },
   },
   { freezeTableName: true }
 );
 
 const ProductItem = sequelize.define(
-  "product_item",
+  "productItem",
   {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     product_name: { type: DataTypes.STRING, unique: true, allowNull: false },

@@ -3,8 +3,8 @@ const router = new Router();
 const productItemController = require("../controllers/productItemController");
 const checkRole = require("../middleware/checkRoleMiddleware");
 
-router.post("/", checkRole("ADMIN"), productItemController.create);
-router.get("/", productItemController.getAll);
+router.post("", productItemController.create);
+router.get("/all", productItemController.getAll);
 router.get("/:id", productItemController.getOne);
 router.put("/:id", productItemController.put);
 

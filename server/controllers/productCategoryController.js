@@ -6,10 +6,12 @@ const ApiError = require("../error/ApiError");
 class ProductCategoryController {
   async create(req, res, next) {
     try {
+      console.log(req);
       const { category } = req.body;
       const { img } = req.files;
       let fileName = uuid.v4() + ".jpg";
       img.mv(path.resolve(__dirname, "..", "static", fileName));
+      
 
       const productCategory = await ProductCategory.create({
         category,
@@ -17,7 +19,9 @@ class ProductCategoryController {
       });
       return res.json(productCategory);
     } catch (e) {
+      console.log(req);
       next(ApiError.badRequest(e.message));
+      
     }
   }
 

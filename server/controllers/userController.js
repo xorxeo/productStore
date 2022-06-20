@@ -25,12 +25,14 @@ class UserController {
       }
       const hashPassword = await bcrypt.hash(password, 5);
       const user = await User.create({ email, role, password: hashPassword });
-      const userRefProduct = UserRefProduct.create({ userId: user.id });
+      // const basket = UserRefProduct.create({ userId: user.id });
       const token = generateJwt(user.id, user.email, user.role);
 
       return res.json({ token });
     } catch (e) {
+      console.log('catch registration', req.body)
       next(ApiError.badRequest(e.message));
+
     }
   }
 
