@@ -21,7 +21,7 @@ export const CategoryCards = observer(({ product }) => {
           onClick={() => {
             navigate(CATEGORY_ROUTE + "/" + categoryProductItem.category);
             product.setSelectedCategory(categoryProductItem);
-            console.log(categoryProductItem.category)
+            console.log(categoryProductItem)
             // console.log(location.pathname)
           }}
         >

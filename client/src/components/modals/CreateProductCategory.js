@@ -1,31 +1,40 @@
+import { observer } from "mobx-react-lite";
 import React from "react";
 import { useState } from "react";
 import { createCategory } from "../../http/categoryAPI";
 
-export const ModalCreateProductCategory = ({ show, close }) => {
-  const [value, setValue] = useState("");
-  const [file, setFile] = useState(null);
+export const ModalCreateProductCategory = observer(({ show, close }) => {
+  const [category, setCategory] = useState("");
+  const [img, setImg] = useState(null);
 
-  const selectFile = (e) => {
-    setFile(e.target.files[0]);
-    console.log(e.target.files[0]);
-    console.log("console.log(file) >>>>>>", file);
-    // console.log("console.log(value) >>>>>>", value);
+  const selectImg = (e) => {
+    setImg(e.target.files[0]);
+    // console.log(e.target.files[0]);
   };
 
-  const addProductCategory = (value, file) => {
-    const formData = new FormData();
+  if (img) {
+    // console.log("console.log(file) >>>>>>", img);
+    // console.log("console.log(category) >>>>>>", category);
+  }
 
-    formData.append("category", value);
-    formData.append("img", file);
+  const addProductCategory = async (event) => {
+    // console.log("event from addProductCategory", event);
+    event.preventDefault();
 
-    createCategory(formData).then((data) => {
-      console.log(formData);
-      setValue("");
-      console.log("console.log(file after ADD BUTTON) >>>>>>", file)
-      // console.log("console.log(value) >>>>>>", value)
-      close();
-    });
+    try {
+      let data;
+      const formData = new FormData();
+
+      formData.append("category", category);
+      formData.append("img", img);
+     
+      const response = await createCategory(formData).then((data) => {
+        setCategory("");
+        close();
+      });
+    } catch (e) {
+      alert(e.response.data.message);
+    }
   };
 
   return (
@@ -40,30 +49,24 @@ export const ModalCreateProductCategory = ({ show, close }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="title flex text-center mt-3">Add Product Category</div>
-        <div className="body">
+        <form className="form-body">
           <input
             className="flex "
             placeholder="Введите название категории"
-            // onClick={(e) => {
-            //   e.stopPropagation();
-            // }}
             onChange={(e) => {
-              setValue(e.target.value);
-              console.log(value);
+              setCategory(e.target.value);
             }}
           />
+          Изображение{" "}
           <input
             type="file"
+            accept="image/*"
             className="flex "
             placeholder="Загрузите изображение"
-            // onClick={(e) =>{
-            //    e.stopPropagation();
-
-            //    }}
-            onChange={selectFile}
+            onChange={selectImg}
           />
-        </div>
-        <div className="footer">
+        </form>
+        
           <button
             onClick={() => {
               close(false);
@@ -71,16 +74,11 @@ export const ModalCreateProductCategory = ({ show, close }) => {
           >
             Cancel
           </button>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              addProductCategory();
-            }}
-          >
+          <button type="submit" onClick={addProductCategory}>
             Add
           </button>
-        </div>
+        
       </div>
     </div>
   );
-};
+});

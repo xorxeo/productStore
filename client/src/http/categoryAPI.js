@@ -1,8 +1,8 @@
 import { $authHost, $host } from "./api";
 import jwtDecode from "jwt-decode";
 
-export const createCategory = async (category) => {
-  const { data } = await $authHost.post("/", { category });
+export const createCategory = async (categoryData) => {
+  const { data } = await $authHost.post("", categoryData );
 
   return data;
 };

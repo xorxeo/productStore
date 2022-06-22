@@ -85,7 +85,8 @@ export const Auth = observer(() => {
                       <div>Register!</div>
                     </NavLink>
                   ) : (
-                    <NavLink to={LOGIN_ROUTE}>
+                    <NavLink to={LOGIN_ROUTE}
+                   >
                       <div>Sign in</div>
                     </NavLink>
                   )}
