@@ -6,13 +6,14 @@ const ApiError = require("../error/ApiError");
 class ProductItemController {
   async create(req, res, next) {
     try {
-      const { product_name, price, description } = req.body;
+      const { productName, price, description, category } = req.body;
       const { img } = req.files;
       let fileName = uuid.v4() + ".jpg";
       img.mv(path.resolve(__dirname, "..", "static", fileName));
 
       const productItem = await ProductItem.create({
-        product_name,
+        productName,
+        category,
         price,
         description,
         img: fileName,
@@ -55,13 +56,13 @@ class ProductItemController {
   async put(req, res, next) {
     try {
       const { id } = req.params;
-      const { product_name, price, description } = req.body;
+      const { productName, price, description } = req.body;
       const { img } = req.files;
       let fileName = uuid.v4() + ".jpg";
       img.mv(path.resolve(__dirname, "..", "static", fileName));
       const productItem = await (
         await ProductItem.findOne({ where: { id } })
-      ).update({ product_name, price, description, img: fileName });
+      ).update({ productName, price, description, img: fileName });
 
       return res.json(productItem);
     } catch (e) {
@@ -72,14 +73,14 @@ class ProductItemController {
   async patch(req, res, next) {
     try {
       const { id } = req.params;
-      const { product_name, price, description, productCategoryId } = req.body;
+      const { productName, price, description, productCategoryId } = req.body;
       const { img } = req.files;
       let fileName = uuid.v4() + ".jpg";
       img.mv(path.resolve(__dirname, "..", "static", fileName));
       const productItem = await (
         await ProductItem.findOne({ where: { id } })
       ).update({
-        product_name,
+        productName,
         price,
         description,
         img: fileName,

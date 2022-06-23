@@ -7,7 +7,7 @@ const basketRouter = require('./basketRouter');
 
 router.use("/user", userRouter);
 router.use("/", productCategoryRouter);
-router.use("/productItem", productItemRouter);
+router.use("/", productItemRouter);
 // router.use("/basket", basketRouter)
 
 module.exports = router;

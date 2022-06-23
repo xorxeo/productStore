@@ -3,7 +3,7 @@ const router = new Router();
 const productItemController = require("../controllers/productItemController");
 const checkRole = require("../middleware/checkRoleMiddleware");
 
-router.post("", productItemController.create);
+router.post("/createProductItem", productItemController.create);
 router.get("/all", productItemController.getAll);
 router.get("/:id", productItemController.getOne);
 router.put("/:id", productItemController.put);
