@@ -15,7 +15,7 @@ export class ProductStore {
       // {
       //   id: 1,
       //   category: "Cofee",
-      //   product_name: "Lavazza",
+      //   productName: "Lavazza",
       //   price: 2350,
       //   description: "Кофе в зернах Lavazza Qualita Oro 1кг",
       //   img: "../img/product/cofee-lavazza.jpg",
@@ -23,7 +23,7 @@ export class ProductStore {
       // {
       //   id: 2,
       //   category: "Cofee",
-      //   product_name: "Bushido",
+      //   productName: "Bushido",
       //   price: 649,
       //   description: "Кофе растворимый в кристаллах Kodo 95г",
       //   img: "../img/product/cofee-bushido.jpg",
@@ -31,7 +31,7 @@ export class ProductStore {
       // {
       //   id: 3,
       //   category: "Tea",
-      //   product_name: "Azer-Chai",
+      //   productName: "Azer-Chai",
       //   price: 449,
       //   description: "Чай черный крупнолистовой",
       //   img: "",
@@ -67,6 +67,6 @@ export class ProductStore {
     return this._selectedCategory;
   }
   get selectedProductItem() {
-    return this._selectedProductItem
+    return this._selectedProductItem;
   }
 }

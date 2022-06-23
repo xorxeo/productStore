@@ -1,17 +1,58 @@
-import React, { useContext, useEffect } from "react";
+import { observer } from "mobx-react-lite";
+import React, { useContext } from "react";
 import { useState } from "react";
-import { fetchProductItem } from "../../http/categoryAPI";
+import { createProductItem } from "../../http/categoryAPI";
 import { Context } from "../../index";
 
-export const ModalCreateProductItem = ({ show, close }) => {
+export const ModalCreateProductItem = observer(({ show, close }) => {
   const { product } = useContext(Context);
-  // const [selectedCategory, setSelectedCategory] = useState(null);
-  // console.log(selectedCategory);
-  useEffect(() => {
-    fetchProductItem().then((data) => {
-      product.setProductItem(data);
-    });
-  }, []);
+
+  const [category, setCategory] = useState("");
+  const [img, setImg] = useState(null);
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+
+  const selectImg = (e) => {
+    setImg(e.target.files[0]);
+    // console.log(e.target.files[0]);
+  };
+
+  const handleChange = (e) => {
+    setCategory(e.target.value);
+  };
+  console.log(category);
+
+
+  const addProductItem = async (event) => {
+    event.preventDefault();
+
+    try {
+
+      const formData = new FormData();
+
+      console.log("try", category);
+
+      if (category) {
+        formData.append("category", category);
+        formData.append("img", img);
+        formData.append("productName", name);
+        formData.append("price", price);
+        formData.append("description", description);
+
+        const response = await createProductItem(formData).then((data) => {
+          close();
+          console.log(category);
+        });
+
+      } else {
+        console.log("oh, no");
+      };
+
+    } catch (e) {
+      alert(e.response.data.message);
+    }
+  };
 
   return (
     <div
@@ -26,38 +67,58 @@ export const ModalCreateProductItem = ({ show, close }) => {
       >
         <div className="title flex text-center mt-3">Add Product Item</div>
         <div className="body">
+        
           <select
-            onChange={(e) => {
-              product.setSelectedCategory(e.target.value);
-              console.log(e.target.value);
-              console.log(product);
-              // console.log(selectedCategory);
-            }}
-            defaultValue="Выберете категорию продукта"
             className="w-52"
+            value={category}
+            onChange={handleChange}
           >
-            <option disabled>Выберете категорию продукта</option>
+            <option disabled value="">Выберете категорию продукта</option>
             {product &&
               product.categoryProduct.map((elem) => (
-                <option key={elem.id} value={elem.category}>
+                <option
+                  key={elem.id}
+                  value={elem.category}
+                >
                   {elem.category}
                 </option>
               ))}
           </select>
+          Изображение
+          <input
+            type="file"
+            accept="image/*"
+            className="flex "
+            placeholder="Загрузите изображение"
+            onChange={selectImg}
+          />
           <input
             className="flex "
             placeholder="Введите название продукта"
-            onClick={(e) => e.stopPropagation()}
+            onChange={(e) => {
+              e.stopPropagation();
+              setName(e.target.value);
+              console.log(e.target.value);
+              // console.log(category)
+            }}
           />
           <input
             className="flex "
             placeholder="Введите цену продукта"
-            onClick={(e) => e.stopPropagation()}
+            onChange={(e) => {
+              e.stopPropagation();
+              setPrice(e.target.value);
+              // console.log(e.target.value);
+            }}
           />
           <input
             className="flex "
             placeholder="Введите описание продукта"
-            onClick={(e) => e.stopPropagation()}
+            onChange={(e) => {
+              e.stopPropagation();
+              setDescription(e.target.value);
+              // console.log(e.target.value);
+            }}
           />
         </div>
         <div className="footer">
@@ -68,15 +129,9 @@ export const ModalCreateProductItem = ({ show, close }) => {
           >
             Cancel
           </button>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          >
-            Add
-          </button>
+          <button onClick={addProductItem}>Add</button>
         </div>
       </div>
     </div>
   );
-};
+});

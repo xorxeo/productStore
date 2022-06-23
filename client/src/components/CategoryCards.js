@@ -21,11 +21,15 @@ export const CategoryCards = observer(({ product }) => {
           onClick={() => {
             navigate(CATEGORY_ROUTE + "/" + categoryProductItem.category);
             product.setSelectedCategory(categoryProductItem);
-            console.log(categoryProductItem)
+            console.log(product.selectedCategory.category);
             // console.log(location.pathname)
           }}
         >
-          <img className="w-24 h-24" alt={categoryProductItem.category} src={process.env.REACT_APP_API_URL + categoryProductItem.img}></img>
+          <img
+            className="w-24 h-24"
+            alt={categoryProductItem.category}
+            src={process.env.REACT_APP_API_URL + categoryProductItem.img}
+          ></img>
           {categoryProductItem.category}
         </div>
       ))}

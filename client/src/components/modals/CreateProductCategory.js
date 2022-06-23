@@ -3,19 +3,14 @@ import React from "react";
 import { useState } from "react";
 import { createCategory } from "../../http/categoryAPI";
 
-export const ModalCreateProductCategory = observer(({ show, close }) => {
+export const ModalCreateProductCategory = ({ show, close }) => {
   const [category, setCategory] = useState("");
   const [img, setImg] = useState(null);
 
   const selectImg = (e) => {
     setImg(e.target.files[0]);
-    // console.log(e.target.files[0]);
+    console.log(e.target.files[0]);
   };
-
-  if (img) {
-    // console.log("console.log(file) >>>>>>", img);
-    // console.log("console.log(category) >>>>>>", category);
-  }
 
   const addProductCategory = async (event) => {
     // console.log("event from addProductCategory", event);
@@ -27,9 +22,10 @@ export const ModalCreateProductCategory = observer(({ show, close }) => {
 
       formData.append("category", category);
       formData.append("img", img);
-     
+
       const response = await createCategory(formData).then((data) => {
         setCategory("");
+        setImg(null);
         close();
       });
     } catch (e) {
@@ -66,19 +62,18 @@ export const ModalCreateProductCategory = observer(({ show, close }) => {
             onChange={selectImg}
           />
         </form>
-        
-          <button
-            onClick={() => {
-              close(false);
-            }}
-          >
-            Cancel
-          </button>
-          <button type="submit" onClick={addProductCategory}>
-            Add
-          </button>
-        
+
+        <button
+          onClick={() => {
+            close(false);
+          }}
+        >
+          Cancel
+        </button>
+        <button type="submit" onClick={addProductCategory}>
+          Add
+        </button>
       </div>
     </div>
   );
-});
+};

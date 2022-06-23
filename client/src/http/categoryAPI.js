@@ -2,7 +2,7 @@ import { $authHost, $host } from "./api";
 import jwtDecode from "jwt-decode";
 
 export const createCategory = async (categoryData) => {
-  const { data } = await $authHost.post("", categoryData );
+  const { data } = await $authHost.post("", categoryData);
 
   return data;
 };
@@ -13,8 +13,8 @@ export const fetchCategory = async () => {
   return data;
 };
 
-export const createProductItem = async () => {
-  const { data } = await $authHost.post("");
+export const createProductItem = async (productItemData) => {
+  const { data } = await $authHost.post("createProductItem", productItemData);
 
   return data;
 };
