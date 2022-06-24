@@ -11,32 +11,7 @@ export class ProductStore {
       // { id: 6, category: "Pastry", img: "../img/logo/pastry-logo.png" },
     ];
 
-    this._productItem = [
-      // {
-      //   id: 1,
-      //   category: "Cofee",
-      //   productName: "Lavazza",
-      //   price: 2350,
-      //   description: "Кофе в зернах Lavazza Qualita Oro 1кг",
-      //   img: "../img/product/cofee-lavazza.jpg",
-      // },
-      // {
-      //   id: 2,
-      //   category: "Cofee",
-      //   productName: "Bushido",
-      //   price: 649,
-      //   description: "Кофе растворимый в кристаллах Kodo 95г",
-      //   img: "../img/product/cofee-bushido.jpg",
-      // },
-      // {
-      //   id: 3,
-      //   category: "Tea",
-      //   productName: "Azer-Chai",
-      //   price: 449,
-      //   description: "Чай черный крупнолистовой",
-      //   img: "",
-      // },
-    ];
+    this._productItem = [];
 
     this._selectedCategory = {};
     this._selectedProductItem = {};

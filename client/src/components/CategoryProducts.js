@@ -1,24 +1,28 @@
 import { observer } from "mobx-react-lite";
 import { useLocation, useNavigate } from "react-router-dom";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../index";
 import { PRODUCT_ROUTE } from "../utils/consts";
 import { fetchProductItem } from "../http/categoryAPI";
 
+
 export const CategoryProducts = observer(() => {
   const { product } = useContext(Context);
+  const { basket } = useContext(Context);
   const navigate = useNavigate();
   const location = useLocation();
   // console.log(product.productItem);
+ 
 
+  
   useEffect(() => {
     fetchProductItem().then((data) => {
       product.setProductItem(data);
       //  console.log(data)
       // console.log(product.productItem);
-      //  console.log(product.selectedCategory)
+      // console.log(product.selectedCategory);
     });
-  }, []);
+  }, [product]);
 
   return (
     <div className="container flex h-screen min-w-full pt-16 pb-4 mx-0 bg-slate-200">
@@ -26,19 +30,16 @@ export const CategoryProducts = observer(() => {
         {product.productItem
           .filter(
             (productItem) =>
-              productItem.productCategoryId == product.selectedCategory.category
+              productItem.category == product.selectedCategory.category
           )
           .map((filteredProductItem) => (
             <div
               key={filteredProductItem.id}
-              className=" card-wrapper group grid relative grid-col-2 w-full h-full rounded-t-lg bg-slate-50 "
+              className=" card-wrapper group grid relative grid-col-2 w-fit h-w-fit rounded-t-lg bg-slate-50 "
               onClick={(e) => {
-                // console.log(product.id),
-                navigate(PRODUCT_ROUTE + "/" + product.productName);
+                navigate(PRODUCT_ROUTE + "/" + filteredProductItem.productName);
                 product.setSelectedProductItem(filteredProductItem);
-                // console.log(location.pathname)
-                // console.log(e.target)
-                console.log(product.selectedProductItem);
+                // console.log(product.selectedProductItem);
               }}
             >
               <div className="card-image grid relative justify-center items-center z-0 bg-white rounded-t-lg ">
@@ -63,17 +64,53 @@ export const CategoryProducts = observer(() => {
                 </div>
 
                 <div
-                  className="buy-button  absolute bg-slate-400  right-1 bottom-1 transition ease-in-out duration-1000 group-hover:block  group-hover:animate-wiggle z-10   "
+                  className="increment-decrement-wrap flex flex-row  justify-center"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
+                  <div className="flex w-10  mr-2 bg-orange-200">
+                    <button
+                      className="flex w-full h-full place-content-center pt-1 font-bold text-lg cursor-default"
+                      onClick={() => {
+                          basket.deleteItem(filteredProductItem.id);
+                          console.log(basket.goods);
+
+                        // basket.goods.delete(filteredProductItem.productName);
+                      }}
+                    >
+                      -
+                    </button>
+                  </div>
+                  <div className="flex-grow  p-2 mr-2  bg-orange-200">
+                    <span className="flex justify-center cursor-default">
+                      {filteredProductItem.price * basket.goods[filteredProductItem.id]}
+                    </span>
+                  </div>
+                  <div className="flex w-10  mr-2 bg-orange-200">
+                    <button
+                      className="flex w-full h-full place-content-center pt-1 font-bold text-lg cursor-default"
+                      onClick={() => {
+                        // console.log(filteredProductItem.id);
+                        basket.addItem(filteredProductItem.id);
+                        console.log(basket.goods);
+
+                        
+                      }}
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                {/* <div
+                  className="buy-button  bg-slate-600 right-1 bottom-1 group-hover:animate-wiggle    "
                   onClick={(e) => {
                     e.stopPropagation();
                     console.log(">>>>>>>>", filteredProductItem.productName);
                   }}
                 >
                   <img className="grid w-8 h-8" src="../img/basket.webp"></img>
-                </div>
-
-                {/* <div className="increment-decrement z-10">
-                  <Counter />
                 </div> */}
               </div>
             </div>

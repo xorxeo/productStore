@@ -6,7 +6,9 @@ import { fetchCategory } from "../http/categoryAPI";
 
 export const Shop = observer(() => {
   const { product } = useContext(Context);
+
   // console.log(product.categoryProduct);
+
   useEffect(() => {
     fetchCategory().then((data) => product.setCategoryProduct(data));
     

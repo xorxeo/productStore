@@ -1,13 +1,18 @@
-import React from "react";
-import { BasketList } from "../components/BasketList";
+import React, { useContext } from "react";
+import { Context } from "../index";
+
 
 export const Basket = () => {
-  const basket = [];
+  const { basket } = useContext(Context);
+
+  console.log(basket.goods);
+
+
 
   return (
-    <div>
+    <div className="flex pt-16 justify-center">
       <h1>Basket</h1>
-      <BasketList />
+      {/* <BasketList /> */}
     </div>
   );
 };
