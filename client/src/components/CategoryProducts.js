@@ -5,16 +5,13 @@ import { Context } from "../index";
 import { PRODUCT_ROUTE } from "../utils/consts";
 import { fetchProductItem } from "../http/categoryAPI";
 
-
 export const CategoryProducts = observer(() => {
   const { product } = useContext(Context);
   const { basket } = useContext(Context);
   const navigate = useNavigate();
   const location = useLocation();
   // console.log(product.productItem);
- 
 
-  
   useEffect(() => {
     fetchProductItem().then((data) => {
       product.setProductItem(data);
@@ -22,7 +19,7 @@ export const CategoryProducts = observer(() => {
       // console.log(product.productItem);
       // console.log(product.selectedCategory);
     });
-  }, [product]);
+  }, []);
 
   return (
     <div className="container flex h-screen min-w-full pt-16 pb-4 mx-0 bg-slate-200">
@@ -63,55 +60,62 @@ export const CategoryProducts = observer(() => {
                   </div>
                 </div>
 
-                <div
+                 <div
                   className="increment-decrement-wrap flex flex-row  justify-center"
                   onClick={(e) => {
                     e.stopPropagation();
                   }}
                 >
-                  <div className="flex w-10  mr-2 bg-orange-200">
+                  <div className="flex w-10  mr-2 bg-slate-300">
                     <button
                       className="flex w-full h-full place-content-center pt-1 font-bold text-lg cursor-default"
                       onClick={() => {
-                          basket.deleteItem(filteredProductItem.id);
-                          console.log(basket.goods);
-
+                        basket.deleteItem(filteredProductItem.id);
+                        console.log(basket.goods);
                         // basket.goods.delete(filteredProductItem.productName);
                       }}
                     >
                       -
                     </button>
                   </div>
-                  <div className="flex-grow  p-2 mr-2  bg-orange-200">
-                    <span className="flex justify-center cursor-default">
-                      {filteredProductItem.price * basket.goods[filteredProductItem.id]}
-                    </span>
+                  <div className="flex-grow  p-2 mr-2  bg-slate-300">
+                    {basket.goods && (
+                      <span className="flex justify-center text-sm cursor-default">
+                        {/* {filteredProductItem.price *
+                        basket.goods[filteredProductItem.id]} */}
+                        {basket.goods[filteredProductItem.id]}
+                      </span>
+                    )}
                   </div>
-                  <div className="flex w-10  mr-2 bg-orange-200">
+
+                  <div className="flex w-10  mr-2 bg-slate-300">
                     <button
                       className="flex w-full h-full place-content-center pt-1 font-bold text-lg cursor-default"
                       onClick={() => {
-                        // console.log(filteredProductItem.id);
                         basket.addItem(filteredProductItem.id);
-                        console.log(basket.goods);
-
-                        
+                        // console.log(basket.goods);
                       }}
                     >
                       +
                     </button>
                   </div>
+
+
+                  
                 </div>
 
-                {/* <div
-                  className="buy-button  bg-slate-600 right-1 bottom-1 group-hover:animate-wiggle    "
+               {/* {!basket.goods.id && <div
+                  className="buy-button  bg-slate-600 right-1 bottom-1 group-hover:animate-wiggle"
                   onClick={(e) => {
+                    basket.addItem(filteredProductItem.id);
+                    console.log(basket.goods);
                     e.stopPropagation();
-                    console.log(">>>>>>>>", filteredProductItem.productName);
+                    
                   }}
                 >
                   <img className="grid w-8 h-8" src="../img/basket.webp"></img>
-                </div> */}
+                </div> }   */}
+
               </div>
             </div>
           ))}
