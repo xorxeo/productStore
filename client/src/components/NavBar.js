@@ -1,9 +1,6 @@
-import React, { useContext, useTransition } from "react";
+import React, { useContext, useState, useTransition } from "react";
 import { Context } from "../index";
-import { Navigate, NavLink, useLocation, useNavigate } from "react-router-dom";
-import { Shop } from "../pages/Shop";
-import { Auth } from "../pages/Auth";
-import { Admin } from "../pages/Admin";
+import {  NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
   ADMIN_ROUTE,
   SHOP_ROUTE,
@@ -12,12 +9,17 @@ import {
   BASKET_ROUTE,
 } from "../utils/consts";
 import { observer } from "mobx-react-lite";
+import { BasketModal } from "./modals/BasketModal"
+
 
 export const NavBar = observer(() => {
   const { user } = useContext(Context);
+ 
+  
   const location = useLocation();
   const isLogin = location.pathname === REGISTRATION_ROUTE;
   const navigate = useNavigate();
+  const [basketModalVisible, SetBasketModalVisible] = useState(true);
 
   const logOut = () => {
     user.setUser({});
@@ -38,9 +40,14 @@ export const NavBar = observer(() => {
       {user.isAuth && user.role === "USER" && (
         <div className="flex space-x-3 ml-auto ">
           <NavLink to={BASKET_ROUTE}>
-            <div className="basket-wrapper grid pl-4 pr-5 transition ease-in-out duration-1000  hover:animate-bounce z-10 ">
+            <button className="group basket-wrapper grid pl-4 pr-5 transition ease-in-out duration-1000  hover:animate-bounce z-10 "
+                  
+            >
               <img className="w-8 h-8" src="../img/basket.webp"></img>
-            </div>
+            </button>
+            
+            {/* <BasketModal show={basketModalVisible} close={SetBasketModalVisible} products={} basket={}/> */}
+
           </NavLink>
           <NavLink to={SHOP_ROUTE}>
             <button

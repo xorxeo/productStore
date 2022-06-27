@@ -4,6 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../index";
 import { PRODUCT_ROUTE } from "../utils/consts";
 import { fetchProductItem } from "../http/categoryAPI";
+import { Counter } from "./Counter";
 
 export const CategoryProducts = observer(() => {
   const { product } = useContext(Context);
@@ -36,7 +37,7 @@ export const CategoryProducts = observer(() => {
               onClick={(e) => {
                 navigate(PRODUCT_ROUTE + "/" + filteredProductItem.productName);
                 product.setSelectedProductItem(filteredProductItem);
-                // console.log(product.selectedProductItem);
+                console.log(product.selectedProductItem);
               }}
             >
               <div className="card-image grid relative justify-center items-center z-0 bg-white rounded-t-lg ">
@@ -60,7 +61,9 @@ export const CategoryProducts = observer(() => {
                   </div>
                 </div>
 
-                 <div
+                <div>{<Counter props={filteredProductItem} />}</div>
+
+                {/* <div
                   className="increment-decrement-wrap flex flex-row  justify-center"
                   onClick={(e) => {
                     e.stopPropagation();
@@ -81,8 +84,6 @@ export const CategoryProducts = observer(() => {
                   <div className="flex-grow  p-2 mr-2  bg-slate-300">
                     {basket.goods && (
                       <span className="flex justify-center text-sm cursor-default">
-                        {/* {filteredProductItem.price *
-                        basket.goods[filteredProductItem.id]} */}
                         {basket.goods[filteredProductItem.id]}
                       </span>
                     )}
@@ -102,9 +103,9 @@ export const CategoryProducts = observer(() => {
 
 
                   
-                </div>
+                </div> */}
 
-               {/* {!basket.goods.id && <div
+                {/* {!basket.goods.id && <div
                   className="buy-button  bg-slate-600 right-1 bottom-1 group-hover:animate-wiggle"
                   onClick={(e) => {
                     basket.addItem(filteredProductItem.id);
@@ -115,7 +116,6 @@ export const CategoryProducts = observer(() => {
                 >
                   <img className="grid w-8 h-8" src="../img/basket.webp"></img>
                 </div> }   */}
-
               </div>
             </div>
           ))}
