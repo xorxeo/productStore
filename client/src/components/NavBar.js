@@ -10,9 +10,11 @@ import {
 } from "../utils/consts";
 import { observer } from "mobx-react-lite";
 import { BasketModal } from "./modals/BasketModal";
+import { Basket } from "../pages/Basket";
 
 export const NavBar = observer(() => {
   const { user } = useContext(Context);
+  const { basket } = useContext(Context);
 
   const location = useLocation();
   const isLogin = location.pathname === REGISTRATION_ROUTE;
@@ -43,6 +45,7 @@ export const NavBar = observer(() => {
         <div className="  flex space-x-3 ml-auto ">
 
           <div className="group flex">
+            {/* <div className="flex">7</div> */}
             <NavLink to={BASKET_ROUTE}>
               <button className=" basket-wrapper grid pl-4 pr-5 transition ease-in-out duration-1000 ">
                 <img className="w-8 h-8" src="../img/basket.webp"></img>

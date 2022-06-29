@@ -15,16 +15,14 @@ export const BasketModal = ({ show, close }) => {
     <div
       show={show}
       close={close}
-      className="modal-background flex absolute right-10 top-10 p-10 bg-slate-100 "
-      onClick={(e) => {
-        e.stopPropagation();
-        close(false);
-      }}
+      className="modal-background flex absolute flex-col items-center right-10 top-10 p-10 bg-slate-300 rounded-md"
+     
     >
-      <div>user</div>
-      <div>
-        {basket.goods && <BasketItem className=""/>}
+      <div className="flex flex-col w-fit ">
+        <p className="text-lg font-medium">Hello, {basket.UserStore.emailFromLogin}!</p>
+        
       </div>
+      <div>{basket.goods && <BasketItem />}</div>
     </div>
   );
 };
