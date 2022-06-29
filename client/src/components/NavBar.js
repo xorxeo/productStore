@@ -1,6 +1,6 @@
 import React, { useContext, useState, useTransition } from "react";
 import { Context } from "../index";
-import {  NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
   ADMIN_ROUTE,
   SHOP_ROUTE,
@@ -9,22 +9,24 @@ import {
   BASKET_ROUTE,
 } from "../utils/consts";
 import { observer } from "mobx-react-lite";
-import { BasketModal } from "./modals/BasketModal"
-
+import { BasketModal } from "./modals/BasketModal";
 
 export const NavBar = observer(() => {
   const { user } = useContext(Context);
- 
-  
+
   const location = useLocation();
   const isLogin = location.pathname === REGISTRATION_ROUTE;
   const navigate = useNavigate();
-  const [basketModalVisible, SetBasketModalVisible] = useState(true);
+  // const [basketModalVisible, setBasketModalVisible] = useState(true);
+
+  // show={basketModalVisible} close={setBasketModalVisible}
+
+  // basketModalVisible &&
 
   const logOut = () => {
     user.setUser({});
     user.setIsAuth(false);
-    localStorage.removeItem('token')
+    localStorage.removeItem("token");
   };
 
   user.role = "USER";
@@ -38,25 +40,29 @@ export const NavBar = observer(() => {
       </NavLink>
 
       {user.isAuth && user.role === "USER" && (
-        <div className="flex space-x-3 ml-auto ">
-          <NavLink to={BASKET_ROUTE}>
-            <button className="group basket-wrapper grid pl-4 pr-5 transition ease-in-out duration-1000  hover:animate-bounce z-10 "
-                  
-            >
-              <img className="w-8 h-8" src="../img/basket.webp"></img>
-            </button>
-            
-            {/* <BasketModal show={basketModalVisible} close={SetBasketModalVisible} products={} basket={}/> */}
+        <div className="  flex space-x-3 ml-auto ">
 
-          </NavLink>
-          <NavLink to={SHOP_ROUTE}>
-            <button
-              className="pr-3 pl-3 pb-1 pt-1  shadow-sm border rounded-md font-sans text-l text-white hover:scale-110 ease-in-out"
-              onClick={() => logOut()}
-            >
-              LOGOUT
-            </button>
-          </NavLink>
+          <div className="group flex">
+            <NavLink to={BASKET_ROUTE}>
+              <button className=" basket-wrapper grid pl-4 pr-5 transition ease-in-out duration-1000 ">
+                <img className="w-8 h-8" src="../img/basket.webp"></img>
+              </button>
+            </NavLink>
+            <div className="hidden group-hover:flex ">{<BasketModal />}</div>
+          </div>
+
+
+
+          <div>
+            <NavLink to={SHOP_ROUTE}>
+              <button
+                className="pr-3 pl-3 pb-1 pt-1  shadow-sm border rounded-md font-sans text-l text-white "
+                onClick={() => logOut()}
+              >
+                LOGOUT
+              </button>
+            </NavLink>
+          </div>
         </div>
       )}
 

@@ -29,4 +29,5 @@ export class BasketStore {
   get countGoods() {
     return this.goods.length;
   }
+
 }

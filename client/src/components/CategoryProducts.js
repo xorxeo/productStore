@@ -63,48 +63,6 @@ export const CategoryProducts = observer(() => {
 
                 <div>{<Counter props={filteredProductItem} />}</div>
 
-                {/* <div
-                  className="increment-decrement-wrap flex flex-row  justify-center"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                >
-                  <div className="flex w-10  mr-2 bg-slate-300">
-                    <button
-                      className="flex w-full h-full place-content-center pt-1 font-bold text-lg cursor-default"
-                      onClick={() => {
-                        basket.deleteItem(filteredProductItem.id);
-                        console.log(basket.goods);
-                        // basket.goods.delete(filteredProductItem.productName);
-                      }}
-                    >
-                      -
-                    </button>
-                  </div>
-                  <div className="flex-grow  p-2 mr-2  bg-slate-300">
-                    {basket.goods && (
-                      <span className="flex justify-center text-sm cursor-default">
-                        {basket.goods[filteredProductItem.id]}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="flex w-10  mr-2 bg-slate-300">
-                    <button
-                      className="flex w-full h-full place-content-center pt-1 font-bold text-lg cursor-default"
-                      onClick={() => {
-                        basket.addItem(filteredProductItem.id);
-                        // console.log(basket.goods);
-                      }}
-                    >
-                      +
-                    </button>
-                  </div>
-
-
-                  
-                </div> */}
-
                 {/* {!basket.goods.id && <div
                   className="buy-button  bg-slate-600 right-1 bottom-1 group-hover:animate-wiggle"
                   onClick={(e) => {

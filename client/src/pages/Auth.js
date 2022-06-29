@@ -14,7 +14,7 @@ export const Auth = observer(() => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const click = async (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
     try {
       let data;
@@ -31,6 +31,8 @@ export const Auth = observer(() => {
       navigate(SHOP_ROUTE);
 
       console.log("in click() login", user);
+      user.setEmailFromLogin(email);
+      console.log("from userStore >>>>>>>",user.emailFromLogin);
       
     } catch (e) {
       alert(e.response.data.message);
@@ -97,7 +99,7 @@ export const Auth = observer(() => {
                 <div className="flex h-full items-center justify-center py-6 px-4">
                   <button
                     className="group w-full flex justify-content-center py-2 px-4 rounded-md shadow-md bg-slate-400 text-white font-medium hover:scale-105 "
-                    onClick={click}
+                    onClick={handleLogin}
                   >
                     {isLogin ? "Sign in" : "Register"}
                   </button>

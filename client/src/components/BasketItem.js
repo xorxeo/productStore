@@ -9,22 +9,23 @@ export const BasketItem = observer(() => {
   const { basket } = useContext(Context);
   const { product } = useContext(Context);
 
-  useEffect(() => {}, [basket]);
-
+  useEffect(() => {
+  }, [basket])
+  
   const basketItems = () => {
-    const result = [];
-    product.productItem.filter(function (item) {
-      if (item.id in basket.goods) {
-        result.push(item);
-      }
-    });
-    return result;
-  };
+  const result = [];
+  product.productItem.filter(function (item) {
+    if (item.id in basket.goods) {
+      result.push(item);
+    }
+  });
+  return result;
+};
 
-  const filteredBasketProductItem = basketItems(product, basket);
+const filteredBasketProductItem = basketItems(product, basket);
   console.log(filteredBasketProductItem);
   return (
-    <div className="flex pt-16 justify-center">
+    <div className="flex  pt-16 justify-center">
       <table className="table-fixed">
         {/* <h1>Basket</h1> */}
         <thead>

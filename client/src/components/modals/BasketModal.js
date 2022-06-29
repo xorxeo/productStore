@@ -6,37 +6,24 @@ import { BasketItem } from "../BasketItem";
 import { Context } from "../../index";
 
 export const BasketModal = ({ show, close }) => {
-  // const { basket } = useContext(Context);
-  // const { product } = useContext(Context);
-  
+  const { basket } = useContext(Context);
+  const { product } = useContext(Context);
+
+  console.log(basket.UserStore);
 
   return (
     <div
       show={show}
       close={close}
-      className="modal-background flex w-screen h-screen fixed justify-center items-center bg-slate-100"
-      onClick={() => close(false)}
+      className="modal-background flex absolute right-10 top-10 p-10 bg-slate-100 "
+      onClick={(e) => {
+        e.stopPropagation();
+        close(false);
+      }}
     >
-      <div
-        className="modal-container flex flex-col w-96 h-96 rounded bg-slate-200 shadow-lg p-6"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="title flex text-center mt-3">
-          Basket List
-        </div>
-        {/* <div>{<BasketItem products={product} basket={basket}/>}</div> */}
-       
-
-        <button
-          onClick={() => {
-            close(false);
-          }}
-        >
-          Cancel
-        </button>
-        <button type="submit" >
-          Add
-        </button>
+      <div>user</div>
+      <div>
+        {basket.goods && <BasketItem className=""/>}
       </div>
     </div>
   );

@@ -36,6 +36,14 @@ class UserController {
     }
   }
 
+  // async getUser(req, res, next) {
+  //   try {
+  //     const user = await ;
+  //   } catch (e) {
+  //     next();
+  //   }
+  // }
+
   async getAllUsers(req, res, next) {
     try {
       const allUsers = await User.findAll();

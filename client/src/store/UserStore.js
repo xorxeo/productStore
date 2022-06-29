@@ -4,6 +4,7 @@ export class UserStore {
     constructor() {
         this._isAuth = false;
         this._user = {};
+        this._emailFromLogin = null;
         makeAutoObservable(this);
     }
 
@@ -14,10 +15,17 @@ export class UserStore {
         this._user = user;
     }
 
+    setEmailFromLogin(email) {
+        this._emailFromLogin = email;
+    }
+
     get isAuth() {
         return this._isAuth;
     }
     get user() {
         return this._user;
+    }
+    get emailFromLogin() {
+        return this._emailFromLogin;
     }
 }
