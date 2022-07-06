@@ -10,6 +10,8 @@ export const CommonDataContainer = observer((props) => {
     fetchCategory().then((data) => product.setCategoryProduct(data));
   }, []);
 
+  
+
   if (product.categoryProduct.length === 0) {
     return null;
   }

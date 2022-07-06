@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../index";
 import { PRODUCT_ROUTE } from "../utils/consts";
-import { fetchProductItem } from "../http/categoryAPI";
+import { fetchProductItemsByCategory } from "../http/categoryAPI";
 import { Counter } from "./Counter";
 
 export const CategoryProducts = observer(() => {
@@ -15,13 +15,15 @@ export const CategoryProducts = observer(() => {
   const { categoryName } = useParams();
 
   useEffect(() => {
-    fetchProductItem().then((data) => {
+    fetchProductItemsByCategory(categoryName).then((data) => {
+      
       product.setProductItem(data);
-      //  console.log(data)
+
+       console.log(data)
       // console.log(product.productItem);
       // console.log(product.selectedCategory);
     });
-  }, []);
+  }, [categoryName]);
 
   useEffect(() => {
     // product.setSelectedCategory(categoryName);
@@ -31,7 +33,7 @@ export const CategoryProducts = observer(() => {
     }
   }, [categoryName]);
 
-  console.log("categoryProd comp", product.selectedCategory);
+  console.log("productItem component", product.productItem);
 
   return (
     <div className="container flex h-screen min-w-full pt-16 pb-4 mx-0 bg-slate-200">
@@ -49,7 +51,7 @@ export const CategoryProducts = observer(() => {
                 className=" card-wrapper group grid relative grid-col-2 w-fit h-w-fit rounded-t-lg bg-slate-50 "
                 onClick={(e) => {
                   navigate(
-                    PRODUCT_ROUTE + "/" + filteredProductItem.productName
+                    `${PRODUCT_ROUTE}/${filteredProductItem.productName}`
                   );
                   product.setSelectedProductItem(filteredProductItem);
                   console.log(product.selectedProductItem);

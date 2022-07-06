@@ -4,8 +4,8 @@ const productItemController = require("../controllers/productItemController");
 const checkRole = require("../middleware/checkRoleMiddleware");
 
 router.post("/createProductItem", productItemController.create);
-router.get("/productItem/all", productItemController.getAll);
-router.get("/:id", productItemController.getOne);
+router.get("/productItems/:category", productItemController.getAll);
+router.get("/productItems/:id", productItemController.getOne);
 router.put("/:id", productItemController.put);
 
 router.patch("/:id", productItemController.patch);

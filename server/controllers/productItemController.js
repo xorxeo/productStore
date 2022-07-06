@@ -25,25 +25,40 @@ class ProductItemController {
     }
   }
 
-  async getAll(req, res, next) {
+  // async getAll(req, res, next) {
+  //   try {
+  //     const productItems = await ProductItem.findAll();
+  //     return res.json(productItems);
+  //   } catch (e) {
+  //     next(ApiError.badRequest(e.message));
+  //   }
+  // }
+
+  async getOne(req, res, next) {
     try {
-      const productItems = await ProductItem.findAll();
-      return res.json(productItems);
+      const { id } = req.params;
+      const productItem = await ProductItem.findOne({ where: { id } });
+      // console.log(req.params);
+      return res.json(productItem);
     } catch (e) {
       next(ApiError.badRequest(e.message));
     }
   }
 
-  async getOne(req, res) {
-    const { id } = req.params;
-    const productItem = await ProductItem.findOne({ where: { id } });
-    return res.json(productItem);
+  async getAll(req, res, next) {
+    try {
+      const { category } = req.params;
+      const productItem = await ProductItem.findAll({ where: { category } });
+      return res.json(productItem);
+    } catch (e) {
+      next(ApiError.badRequest(e.message));
+    }
   }
 
   async delete(req, res, next) {
     try {
       const { id } = req.params;
-      const productItem = await await ProductItem.findOne({ where: { id } });
+      const productItem = await ProductItem.findOne({ where: { id } });
       if (id) {
         productItem.destroy();
       }

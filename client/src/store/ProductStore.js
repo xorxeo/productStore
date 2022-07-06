@@ -16,19 +16,20 @@ export class ProductStore {
 
     this._selectedCategory = {};
     this._selectedProductItem = {};
+    this._selectedCategoryId = 0;
 
     makeAutoObservable(this);
   }
 
   setCategoryProduct(categoryProduct) {
-    console.log("set category", categoryProduct);
+    // console.log("set category", categoryProduct);
     this._categoryProduct = categoryProduct;
   }
   setProductItem(productItem) {
     this._productItem = productItem;
   }
   setSelectedCategoryId(categoryId) {
-    console.log("set", categoryId);
+    // console.log("set", categoryId);
     this._selectedCategoryId = categoryId;
   }
   setSelectedProductItem(productItem) {
@@ -42,8 +43,8 @@ export class ProductStore {
     return this._productItem;
   }
   get selectedCategory() {
-    console.log("_selectedCategoryId", this._selectedCategoryId);
-    console.log("_categoryProduct", this._categoryProduct );
+    // console.log("_selectedCategoryId", this._selectedCategoryId);
+    // console.log("_categoryProduct", this._categoryProduct );
 
     const qq = this._categoryProduct.find((elem) => {
       return elem.id === this._selectedCategoryId;
@@ -55,8 +56,8 @@ export class ProductStore {
     return this._selectedProductItem;
   }
   getCategoryByName(categoryName) {
-    console.log("get", categoryName);
-    console.log("get", this.categoryProduct);
+    // console.log("get", categoryName);
+    // console.log("get", this.categoryProduct);
 
     const qq = this._categoryProduct.find((elem) => {
       return elem.category === categoryName;

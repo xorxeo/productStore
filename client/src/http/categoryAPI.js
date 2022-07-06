@@ -19,8 +19,8 @@ export const createProductItem = async (productItemData) => {
   return data;
 };
 
-export const fetchProductItem = async () => {
-  const { data } = await $host.get("productItem/all");
+export const fetchProductItemsByCategory = async (params) => {
+  const { data } = await $host.get(`/productItems/${params}`);
 
   return data;
 };
