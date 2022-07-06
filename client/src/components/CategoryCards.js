@@ -19,10 +19,8 @@ export const CategoryCards = observer(({ product }) => {
           className="flex flex-col w-full h-full justify-center items-center rounded-xl bg-slate-300"
           key={categoryProductItem.id}
           onClick={() => {
-            navigate(CATEGORY_ROUTE + "/" + categoryProductItem.category);
-            product.setSelectedCategory(categoryProductItem);
-            // console.log(product.selectedCategory);
-            
+            navigate(`${CATEGORY_ROUTE}/${categoryProductItem.category}`);
+             
           }}
         >
           <img

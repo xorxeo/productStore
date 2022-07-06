@@ -9,7 +9,7 @@ export const BasketModal = ({ show, close }) => {
   const { basket } = useContext(Context);
   const { product } = useContext(Context);
 
-  console.log(basket.UserStore);
+  // console.log(basket.UserStore);
 
   return (
     <div

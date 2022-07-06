@@ -22,7 +22,7 @@ export const BasketItem = observer(() => {
   };
 
   const filteredBasketProductItem = basketItems(product, basket);
-  console.log(filteredBasketProductItem);
+  // console.log(filteredBasketProductItem);
   return (
     <div className="basket-modal flex pt-14 justify-center cursor-default">
       <table className="table  ">

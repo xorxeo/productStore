@@ -42,7 +42,7 @@ export const publicRoutes = [
     Component: <Auth />,
   },
   {
-    path: CATEGORY_ROUTE + "/:category",
+    path: `${CATEGORY_ROUTE}/:categoryName`,
     Component: <CategoryProducts />,
   },
   {

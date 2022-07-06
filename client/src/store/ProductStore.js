@@ -1,4 +1,5 @@
 import { makeAutoObservable } from "mobx";
+import { CategoryProducts } from "../components/CategoryProducts";
 
 export class ProductStore {
   constructor() {
@@ -20,13 +21,15 @@ export class ProductStore {
   }
 
   setCategoryProduct(categoryProduct) {
+    console.log("set category", categoryProduct);
     this._categoryProduct = categoryProduct;
   }
   setProductItem(productItem) {
     this._productItem = productItem;
   }
-  setSelectedCategory(category) {
-    this._selectedCategory = category;
+  setSelectedCategoryId(categoryId) {
+    console.log("set", categoryId);
+    this._selectedCategoryId = categoryId;
   }
   setSelectedProductItem(productItem) {
     this._selectedProductItem = productItem;
@@ -39,9 +42,26 @@ export class ProductStore {
     return this._productItem;
   }
   get selectedCategory() {
-    return this._selectedCategory;
+    console.log("_selectedCategoryId", this._selectedCategoryId);
+    console.log("_categoryProduct", this._categoryProduct );
+
+    const qq = this._categoryProduct.find((elem) => {
+      return elem.id === this._selectedCategoryId;
+    });
+    console.log("////", qq);
+    return qq;
   }
   get selectedProductItem() {
     return this._selectedProductItem;
+  }
+  getCategoryByName(categoryName) {
+    console.log("get", categoryName);
+    console.log("get", this.categoryProduct);
+
+    const qq = this._categoryProduct.find((elem) => {
+      return elem.category === categoryName;
+    });
+
+    return qq;
   }
 }

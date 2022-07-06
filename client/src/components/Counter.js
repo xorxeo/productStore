@@ -40,7 +40,7 @@ export const Counter = observer(({props}) => {
           className="flex w-10 font-medium hover:shadow-lg hover:shadow-slate-400 hover:rounded-md bg-slate-300 text-center place-content-center  text-lg cursor-default"
           onClick={() => {
             basket.addItem(props.id);
-            console.log(basket.countGoods);
+            console.log("basket.countGoods from basketStore >>>>", basket.countGoods);
           }}
         >
           +
