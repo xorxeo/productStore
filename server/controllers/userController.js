@@ -25,7 +25,6 @@ class UserController {
       }
       const hashPassword = await bcrypt.hash(password, 5);
       const user = await User.create({ email, role, password: hashPassword });
-      // const basket = UserRefProduct.create({ userId: user.id });
       const token = generateJwt(user.id, user.email, user.role);
 
       return res.json({ token });
@@ -35,14 +34,6 @@ class UserController {
 
     }
   }
-
-  // async getUser(req, res, next) {
-  //   try {
-  //     const user = await ;
-  //   } catch (e) {
-  //     next();
-  //   }
-  // }
 
   async getAllUsers(req, res, next) {
     try {
@@ -54,6 +45,7 @@ class UserController {
   }
 
   async login(req, res, next) {
+    try {
       const {email, password} = req.body;
       const user = await User.findOne({where: {email}});
       if(!user) {
@@ -65,10 +57,14 @@ class UserController {
       }
       const token = generateJwt(user.id, user.email, user.role);
       return res.json({token});
+    } catch (e) {
+      next(e);
+    }
   }
 
   async check(req, res, next) {
     const token = generateJwt(req.user.id, req.user.email, req.user.role);
+    
     return res.json({token});
   }
 }

@@ -12,24 +12,29 @@ export class ProductStore {
       // { id: 6, category: "Pastry", img: "../img/logo/pastry-logo.png" },
     ];
 
-    this._productItem = [];
+    this._productItems = {};
+
+    this._productItemIdsByCategoryName = {};
 
     this._selectedCategory = {};
     this._selectedProductItem = {};
+
     this._selectedCategoryId = 0;
 
     makeAutoObservable(this);
   }
 
   setCategoryProduct(categoryProduct) {
-    // console.log("set category", categoryProduct);
     this._categoryProduct = categoryProduct;
   }
-  setProductItem(productItem) {
-    this._productItem = productItem;
+  setProductItems(productItems, categoryName) {
+    const ids = productItems.map(({ id }) => id);
+    this._productItemIdsByCategoryName[categoryName] = ids;
+    productItems.forEach((item) => {
+      this._productItems[item.id] = item;
+    });
   }
   setSelectedCategoryId(categoryId) {
-    // console.log("set", categoryId);
     this._selectedCategoryId = categoryId;
   }
   setSelectedProductItem(productItem) {
@@ -40,29 +45,32 @@ export class ProductStore {
     return this._categoryProduct;
   }
   get productItem() {
-    return this._productItem;
+    return this._productItems;
   }
   get selectedCategory() {
-    // console.log("_selectedCategoryId", this._selectedCategoryId);
-    // console.log("_categoryProduct", this._categoryProduct );
-
     const qq = this._categoryProduct.find((elem) => {
       return elem.id === this._selectedCategoryId;
     });
-    console.log("////", qq);
     return qq;
   }
   get selectedProductItem() {
     return this._selectedProductItem;
   }
   getCategoryByName(categoryName) {
-    // console.log("get", categoryName);
-    // console.log("get", this.categoryProduct);
-
     const qq = this._categoryProduct.find((elem) => {
       return elem.category === categoryName;
     });
-
     return qq;
+  }
+  getProductByCategoryName(categoryName) {
+    const ids = this._productItemIdsByCategoryName[categoryName] ?? []
+    return this.getProductByIds(ids);
+  }
+  getProductByIds(ids) {
+    const res = [];
+    for (let id of ids) {
+      res.push(this._productItems[id])
+    }
+    return res;
   }
 }

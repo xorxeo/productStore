@@ -11,7 +11,8 @@ import {
 import { observer } from "mobx-react-lite";
 import { BasketModal } from "./modals/BasketModal";
 import { Basket } from "../pages/Basket";
-
+import { check } from "../http/userAPI"
+ 
 export const NavBar = observer(() => {
   const { user } = useContext(Context);
   const { basket } = useContext(Context);
@@ -69,7 +70,7 @@ export const NavBar = observer(() => {
         </div>
       )}
 
-      {user.role === "ADMIN" && (
+      {user?.role === "ADMIN" && (
         <div className="flex space-x-3 ml-auto ">
           <NavLink to={ADMIN_ROUTE}>
             <button className="pr-3 pl-3 pb-1 pt-1  shadow-sm border rounded-md font-sans text-l text-white hover:scale-110 ease-in-out">
@@ -97,7 +98,13 @@ export const NavBar = observer(() => {
           <NavLink to={LOGIN_ROUTE}>
             <button
               className="pr-3 pl-3 pb-1 pt-1  shadow-sm border rounded-md font-sans text-l text-white hover:scale-110 ease-in-out"
-              onClick={() => (user.role = "USER")}
+              // onClick={() => (user.role = "USER")}
+              // onClick={() => {
+              //     // user.setRole()
+              //     check();
+              //     (console.log(user))
+              //   }
+              // }
             >
               LOGIN/SIGNIN
             </button>

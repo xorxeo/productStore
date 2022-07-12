@@ -5,28 +5,14 @@ import { Context } from "../index";
 import { Counter } from "./Counter";
 
 export const BasketItem = observer(() => {
-  // const {products, basket} = props;
   const { basket } = useContext(Context);
   const { product } = useContext(Context);
 
-  useEffect(() => {}, [basket]);
-
-  const basketItems = () => {
-    const result = [];
-    product.productItem.filter(function (item) {
-      if (item.id in basket.goods) {
-        result.push(item);
-      }
-    });
-    return result;
-  };
-
-  const filteredBasketProductItem = basketItems(product, basket);
-  // console.log(filteredBasketProductItem);
+  const filteredBasketProductItem = product.getProductByIds(Object.keys(basket.goods))
+ 
   return (
     <div className="basket-modal flex pt-14 justify-center cursor-default">
       <table className="table  ">
-        {/* <h1>Basket</h1> */}
         <thead className="text-center">
           <tr className="">
             <th className="font-normal">Product</th>

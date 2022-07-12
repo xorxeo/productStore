@@ -1,6 +1,7 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { check } from "../http/userAPI";
 import { login, registration } from "../http/userAPI";
 import { Context } from "../index";
 import { UserStore } from "../store/UserStore";
@@ -30,7 +31,10 @@ export const Auth = observer(() => {
       user.setIsAuth(true);
       navigate(SHOP_ROUTE);
 
-      console.log("in click() login", user);
+      // check({ user });
+      // console.log(user);
+
+      console.log("onClick() login", user);
       user.setEmailFromLogin(email);
       console.log("from userStore >>>>>>>",user.emailFromLogin);
       

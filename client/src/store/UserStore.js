@@ -5,6 +5,7 @@ export class UserStore {
         this._isAuth = false;
         this._user = {};
         this._emailFromLogin = null;
+        this._role = null;
         makeAutoObservable(this);
     }
 
@@ -18,6 +19,9 @@ export class UserStore {
     setEmailFromLogin(email) {
         this._emailFromLogin = email;
     }
+    // setRole(user) {
+    //     this._role = user.role;
+    // }
 
     get isAuth() {
         return this._isAuth;
@@ -28,4 +32,7 @@ export class UserStore {
     get emailFromLogin() {
         return this._emailFromLogin;
     }
+    // get role() {
+    //     return this._role;
+    // }
 }

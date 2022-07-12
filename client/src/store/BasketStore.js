@@ -6,8 +6,8 @@ export class BasketStore {
   goods = {};
 
   constructor(UserStore, ProductStore) {
-    this.UserStore = UserStore;
-    this.ProductStore = ProductStore;
+    this.$userStore = UserStore;
+    this.$productStore = ProductStore;
 
     makeAutoObservable(this);
   }
@@ -25,9 +25,4 @@ export class BasketStore {
       this.goods[id] -= 1;
     } 
   }
-
-  get countGoods() {
-    return this.goods.length;
-  }
-
 }
