@@ -49,5 +49,4 @@ export const publicRoutes = [
     path: PRODUCT_ROUTE + "/:id",
     Component: <ProductItem />,
   },
-
 ];

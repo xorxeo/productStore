@@ -23,12 +23,10 @@ export const ModalCreateProductItem = observer(({ show, close }) => {
   };
   console.log(category);
 
-
   const addProductItem = async (event) => {
     event.preventDefault();
 
     try {
-
       const formData = new FormData();
 
       console.log("try", category);
@@ -44,11 +42,9 @@ export const ModalCreateProductItem = observer(({ show, close }) => {
           close();
           console.log(category);
         });
-
       } else {
         console.log("oh, no");
-      };
-
+      }
     } catch (e) {
       alert(e.response.data.message);
     }
@@ -67,19 +63,13 @@ export const ModalCreateProductItem = observer(({ show, close }) => {
       >
         <div className="title flex text-center mt-3">Add Product Item</div>
         <div className="body">
-        
-          <select
-            className="w-52"
-            value={category}
-            onChange={handleChange}
-          >
-            <option disabled value="">Выберете категорию продукта</option>
+          <select className="w-52" value={category} onChange={handleChange}>
+            <option disabled value="">
+              Выберете категорию продукта
+            </option>
             {product &&
-              product.categoryProduct.map((elem) => (
-                <option
-                  key={elem.id}
-                  value={elem.category}
-                >
+              product.categoryProducts.map((elem) => (
+                <option key={elem.id} value={elem.category}>
                   {elem.category}
                 </option>
               ))}

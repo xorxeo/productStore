@@ -1,9 +1,8 @@
 import { makeAutoObservable } from "mobx";
-import { CategoryProducts } from "../components/CategoryProducts";
 
 export class ProductStore {
   constructor() {
-    this._categoryProduct = [
+    this._categoryProducts = [
       // { id: 1, category: "Cofee", img: "../img/logo/cofee-logo.png" },
       // { id: 2, category: "Tea", img: "../img/logo/tea-logo.png" },
       // { id: 3, category: "Bread", img: "../img/logo/bread-logo.png" },
@@ -24,8 +23,8 @@ export class ProductStore {
     makeAutoObservable(this);
   }
 
-  setCategoryProduct(categoryProduct) {
-    this._categoryProduct = categoryProduct;
+  setCategoryProducts(categoryProducts) {
+    this._categoryProducts = categoryProducts;
   }
   setProductItems(productItems, categoryName) {
     const ids = productItems.map(({ id }) => id);
@@ -41,14 +40,14 @@ export class ProductStore {
     this._selectedProductItem = productItem;
   }
 
-  get categoryProduct() {
-    return this._categoryProduct;
+  get categoryProducts() {
+    return this._categoryProducts;
   }
-  get productItem() {
+  get productItems() {
     return this._productItems;
   }
   get selectedCategory() {
-    const qq = this._categoryProduct.find((elem) => {
+    const qq = this._categoryProducts.find((elem) => {
       return elem.id === this._selectedCategoryId;
     });
     return qq;
@@ -57,7 +56,7 @@ export class ProductStore {
     return this._selectedProductItem;
   }
   getCategoryByName(categoryName) {
-    const qq = this._categoryProduct.find((elem) => {
+    const qq = this._categoryProducts.find((elem) => {
       return elem.category === categoryName;
     });
     return qq;

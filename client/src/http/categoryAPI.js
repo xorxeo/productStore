@@ -20,7 +20,7 @@ export const createProductItem = async (productItemData) => {
 };
 
 export const fetchProductItemsByCategory = async (categoryName) => {
-  const { data } = await $host.get(`/productItems/${categoryName}`);
+  const { data } = await $host.get(`/categories/${categoryName}`);
 
   return data;
 };

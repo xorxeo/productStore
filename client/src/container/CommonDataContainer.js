@@ -10,7 +10,7 @@ export const CommonDataContainer = observer((props) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchCategory().then((data) => product.setCategoryProduct(data));
+    fetchCategory().then((data) => product.setCategoryProducts(data));
   }, []);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export const CommonDataContainer = observer((props) => {
       .finally(() => setLoading(false));
   }, [user.user.id]);
 
-  if (product.categoryProduct.length === 0) {
+  if (product.categoryProducts.length === 0) {
     return null;
   }
 

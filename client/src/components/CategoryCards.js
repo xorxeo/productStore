@@ -14,21 +14,20 @@ export const CategoryCards = observer(({ product }) => {
 
   return (
     <div className="grid grid-cols-5 grid-rows-4 gap-4 w-full h-full p-4 items-center">
-      {product.categoryProduct.map((categoryProductItem) => (
+      {product.categoryProducts.map((categoryProductsItem) => (
         <div
           className="flex flex-col w-full h-full justify-center items-center rounded-xl bg-slate-300"
-          key={categoryProductItem.id}
+          key={categoryProductsItem.id}
           onClick={() => {
-            navigate(`${CATEGORY_ROUTE}/${categoryProductItem.category}`);
-             
+            navigate(`${CATEGORY_ROUTE}/${categoryProductsItem.category}`);
           }}
         >
           <img
             className="w-24 h-24"
-            alt={categoryProductItem.category}
-            src={process.env.REACT_APP_API_URL + categoryProductItem.img}
+            alt={categoryProductsItem.category}
+            src={`${process.env.REACT_APP_API_URL}${categoryProductsItem.img}`}
           ></img>
-          {categoryProductItem.category}
+          {categoryProductsItem.category}
         </div>
       ))}
     </div>

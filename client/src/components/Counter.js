@@ -3,14 +3,13 @@ import React, { useContext } from "react";
 import { Context } from "../index";
 
 export const Counter = observer(({ props }) => {
-  //   const { filteredProductItem } = props;
-
   const { basket } = useContext(Context);
   const { product } = useContext(Context);
 
   return (
-    <div
-      className="increment-decrement-wrap flex flex-row justify-center"
+   <div className="counter-wrapper flex ">
+     <div
+      className="increment-decrement-wrapper flex w-full pl-2 pr-2 "
       onClick={(e) => {
         e.stopPropagation();
       }}
@@ -24,7 +23,7 @@ export const Counter = observer(({ props }) => {
         -
       </button>
 
-      <div className="flex-grow w-10 font-medium bg-slate-300 text-center">
+      <div className="flex flex-grow  font-medium bg-slate-300 text-center">
         {basket.goods && (
           <span className="flex justify-center  cursor-default">
             {basket.goods[props.id]}
@@ -41,5 +40,6 @@ export const Counter = observer(({ props }) => {
         +
       </button>
     </div>
+   </div>
   );
 });

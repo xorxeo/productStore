@@ -8,8 +8,11 @@ export const BasketItem = observer(() => {
   const { basket } = useContext(Context);
   const { product } = useContext(Context);
 
-  const filteredBasketProductItem = product.getProductByIds(Object.keys(basket.goods))
+  const filteredBasketProductItems = product.getProductByIds(Object.keys(basket.goods))
  
+  // console.log(filteredBasketProductItems);
+  // console.log(basket.goods);
+
   return (
     <div className="basket-modal flex pt-14 justify-center cursor-default">
       <table className="table  ">
@@ -22,7 +25,7 @@ export const BasketItem = observer(() => {
           </tr>
         </thead>
         <tbody>
-          {filteredBasketProductItem.map((product) => (
+          {filteredBasketProductItems.map((product) => (
             <tr key={product.price * basket.goods[product.id]} className="">
               <td key={product.productName} className="font-medium text-center">{product.productName}</td>
               <td key={product.price} className="font-medium text-center">{product.price}</td>
