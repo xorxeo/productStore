@@ -19,9 +19,9 @@ export class UserStore {
     setEmailFromLogin(email) {
         this._emailFromLogin = email;
     }
-    // setRole(user) {
-    //     this._role = user.role;
-    // }
+    setRole(role) {
+        this._role = role;
+    }
 
     get isAuth() {
         return this._isAuth;
@@ -32,7 +32,8 @@ export class UserStore {
     get emailFromLogin() {
         return this._emailFromLogin;
     }
-    // get role() {
-    //     return this._role;
-    // }
+    get role() {
+        return this._role
+    }
+    
 }

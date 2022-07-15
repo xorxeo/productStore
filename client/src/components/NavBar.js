@@ -20,11 +20,7 @@ export const NavBar = observer(() => {
   const location = useLocation();
   const isLogin = location.pathname === REGISTRATION_ROUTE;
   const navigate = useNavigate();
-  // const [basketModalVisible, setBasketModalVisible] = useState(true);
-
-  // show={basketModalVisible} close={setBasketModalVisible}
-
-  // basketModalVisible &&
+ 
 
   const logOut = () => {
     user.setUser({});
@@ -32,7 +28,9 @@ export const NavBar = observer(() => {
     localStorage.removeItem("token");
   };
 
-  user.role = "USER";
+  // console.log(user);
+
+  // user.role = "USER";
   // user.role = "ADMIN";
   return (
     <div className="navbar flex absolute flex-row w-screen h-fit pr-10 text-l  shadow-slate-500 rounded-b-md  bg-slate-400 hover:shadow-xl ease-in-out 1s">
@@ -42,7 +40,7 @@ export const NavBar = observer(() => {
         </button>
       </NavLink>
 
-      {user.isAuth && user.role === "USER" && (
+      {user.isAuth && user?.role === "USER" && (
         <div className="  flex space-x-3 ml-auto ">
 
           <div className="group flex">
@@ -61,7 +59,10 @@ export const NavBar = observer(() => {
             <NavLink to={SHOP_ROUTE}>
               <button
                 className="pr-3 pl-3 pb-1 pt-1  shadow-sm border rounded-md font-sans text-l text-white "
-                onClick={() => logOut()}
+                onClick={() => {
+                    logOut();
+                  }
+                }
               >
                 LOGOUT
               </button>
@@ -70,7 +71,7 @@ export const NavBar = observer(() => {
         </div>
       )}
 
-      {user?.role === "ADMIN" && (
+      {user?.role === "ADMIN" && user.isAuth &&(
         <div className="flex space-x-3 ml-auto ">
           <NavLink to={ADMIN_ROUTE}>
             <button className="pr-3 pl-3 pb-1 pt-1  shadow-sm border rounded-md font-sans text-l text-white hover:scale-110 ease-in-out">
@@ -82,6 +83,8 @@ export const NavBar = observer(() => {
             onClick={() => {
               user.setIsAuth(false);
               navigate(SHOP_ROUTE);
+              localStorage.removeItem("token");
+              console.log(localStorage);
               console.log(
                 "exit from admin panel, user.isAuth >>>",
                 user.isAuth
@@ -98,13 +101,6 @@ export const NavBar = observer(() => {
           <NavLink to={LOGIN_ROUTE}>
             <button
               className="pr-3 pl-3 pb-1 pt-1  shadow-sm border rounded-md font-sans text-l text-white hover:scale-110 ease-in-out"
-              // onClick={() => (user.role = "USER")}
-              // onClick={() => {
-              //     // user.setRole()
-              //     check();
-              //     (console.log(user))
-              //   }
-              // }
             >
               LOGIN/SIGNIN
             </button>

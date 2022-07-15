@@ -8,20 +8,7 @@ import { check } from "./http/userAPI";
 import { Context } from "./index";
 
 export const App = observer(() => {
-  const { user } = useContext(Context);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    check()
-      .then((data) => {
-        user.setUser(true);
-        user.setIsAuth(true);
-        // console.log("user.isAuth in check()", user.isAuth);
-        // console.log("user.isAuth in check()", user);
-      })
-      .finally(() => setLoading(false));
-  }, []);
-
+ 
   return (
     <BrowserRouter>
       <CommonDataContainer >

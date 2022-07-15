@@ -1,11 +1,12 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "..";
 import { CategoryCards } from "../components/CategoryCards";
 
 
 export const Shop = observer(() => {
   const { product } = useContext(Context);
+  const { user } = useContext(Context);
 
   // console.log(product.categoryProduct);
 

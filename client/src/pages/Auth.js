@@ -1,43 +1,31 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { check } from "../http/userAPI";
 import { login, registration } from "../http/userAPI";
 import { Context } from "../index";
-import { UserStore } from "../store/UserStore";
 import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "../utils/consts";
 
 export const Auth = observer(() => {
   const { user } = useContext(Context);
   const location = useLocation();
-  const isLogin = location.pathname === LOGIN_ROUTE;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const isLogin = location.pathname === LOGIN_ROUTE;
 
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      let data;
       if (isLogin) {
         const response = await login(email, password);
-        console.log("isLogin");
-        
+        user.setUser(response);
+        console.log("isLogin", user);
+        console.log("response from BACK Login", response);
       } else {
         const response = await registration(email, password);
-        console.log("in click() registration", response);
       }
-      user.setUser(user);
-      user.setIsAuth(true);
+
       navigate(SHOP_ROUTE);
-
-      // check({ user });
-      // console.log(user);
-
-      console.log("onClick() login", user);
-      user.setEmailFromLogin(email);
-      console.log("from userStore >>>>>>>",user.emailFromLogin);
-      
     } catch (e) {
       alert(e.response.data.message);
     }
@@ -91,8 +79,7 @@ export const Auth = observer(() => {
                       <div>Register!</div>
                     </NavLink>
                   ) : (
-                    <NavLink to={LOGIN_ROUTE}
-                   >
+                    <NavLink to={LOGIN_ROUTE}>
                       <div>Sign in</div>
                     </NavLink>
                   )}

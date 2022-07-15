@@ -64,7 +64,8 @@ class UserController {
 
   async check(req, res, next) {
     const token = generateJwt(req.user.id, req.user.email, req.user.role);
-    
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    console.log("decoded from check userController", decoded);
     return res.json({token});
   }
 }
