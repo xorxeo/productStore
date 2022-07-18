@@ -14,8 +14,6 @@ import { ProductItemsCounter } from "./ProductItemsCounter";
 
 export const NavBar = observer(() => {
   const { user, basket } = useContext(Context);
-  
-
   const location = useLocation();
   const isLogin = location.pathname === REGISTRATION_ROUTE;
   const navigate = useNavigate();
@@ -37,8 +35,10 @@ export const NavBar = observer(() => {
       {user.isAuth && user?.role === "USER" && (
         <div className="  flex space-x-3 ml-auto ">
           <div className="group flex relative">
-            < ProductItemsCounter />
-          {/* transition ease-in-out duration-1000   before:content-['5']  -top-3 -right-3*/}
+            <div className="count flex absolute left-12 -top-1 w-7 h-5 justify-center items-center text-base text-cyan-50 bg-red-500 rounded-xl z-10">
+              <ProductItemsCounter />
+            </div>
+            {/* transition ease-in-out duration-1000   before:content-['5']  -top-3 -right-3*/}
             <NavLink to={BASKET_ROUTE}>
               <button className=" basket-wrapper relative pl-5 pr-5 ">
                 <img className="w-8 h-8" src="../img/basket.webp"></img>

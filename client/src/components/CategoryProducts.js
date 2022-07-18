@@ -62,13 +62,13 @@ export const CategoryProducts = observer(() => {
                   </div>
                 </div>
                 <div className="add-button-wrapper flex items-center justify-end pr-2">
-                  {Object.keys(basket.goods).length === 0 && (
-                    <AddFirstProductItem props={productItem}/>
+                  {!(productItem.id in basket.goods) && (
+                    <AddFirstProductItem props={productItem} />
+                  )}
+                  {productItem.id in basket.goods && (
+                    <Counter props={productItem} />
                   )}
                 </div>
-                {Object.keys(basket.goods).length > 0 && (
-                  <div>{<Counter props={productItem} />}</div>
-                )}
               </div>
             </div>
           ))}

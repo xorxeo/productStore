@@ -62,13 +62,13 @@ export class ProductStore {
     return qq;
   }
   getProductByCategoryName(categoryName) {
-    const ids = this._productItemIdsByCategoryName[categoryName] ?? []
+    const ids = this._productItemIdsByCategoryName[categoryName] ?? [];
     return this.getProductByIds(ids);
   }
   getProductByIds(ids) {
     const res = [];
     for (let id of ids) {
-      res.push(this._productItems[id])
+      res.push(this._productItems[id]);
     }
     return res;
   }

@@ -23,6 +23,10 @@ export class BasketStore {
   deleteItem(id) {
     if (this.goods[id]) {
       this.goods[id] -= 1;
-    } 
+    }
+    if (this.goods[id] === 0) {
+      delete this.goods[id];
+      // console.log(this.goods)
+    }
   }
 }

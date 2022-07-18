@@ -10,8 +10,8 @@ export const BasketItem = observer(() => {
 
   const filteredBasketProductItems = product.getProductByIds(Object.keys(basket.goods))
  
-  // console.log(filteredBasketProductItems);
-  // console.log(basket.goods);
+  // console.log("filteredBasketProductItems", filteredBasketProductItems);
+  // console.log("basket.goods", basket.goods);
 
   return (
     <div className="basket-modal flex pt-14 justify-center cursor-default">

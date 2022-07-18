@@ -7,9 +7,9 @@ export const Counter = observer(({ props }) => {
   const { product } = useContext(Context);
 
   return (
-   <div className="counter-wrapper flex ">
+   
      <div
-      className="increment-decrement-wrapper flex w-full pl-2 pr-2 "
+      className="increment-decrement-wrapper flex w-full "
       onClick={(e) => {
         e.stopPropagation();
       }}
@@ -40,6 +40,6 @@ export const Counter = observer(({ props }) => {
         +
       </button>
     </div>
-   </div>
+   
   );
 });

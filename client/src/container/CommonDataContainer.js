@@ -13,17 +13,26 @@ export const CommonDataContainer = observer((props) => {
     fetchCategory().then((data) => product.setCategoryProducts(data));
   }, []);
 
-  useEffect(() => {
-    checkAuth({ user })
-      .then((data) => {
-        user.setEmailFromLogin(data.email);
-        user.setIsAuth(true);
-        user.setRole(data.role);
+  // useEffect(() => {
+  //   checkAuth({ user })
+  //     .then((data) => {
+  //       user.setEmailFromLogin(data.email);
+  //       user.setIsAuth(true);
+  //       user.setRole(data.role);
 
-        console.log(user);
-      })
-      .finally(() => setLoading(false));
-  }, [user.user.id]);
+  //       console.log(user);
+  //     })
+  //     .finally(() => setLoading(false));
+  // }, [user.user.id]);
+
+   useEffect(() => {
+     if (localStorage.getItem('token')) {
+       user.setUserParameters(user, checkAuth);
+       console.log('auth useEffect done');
+     } else {
+       console.log('401 user is not authorized');
+     }
+   }, [user.user.id]);
 
   if (product.categoryProducts.length === 0) {
     return null;
