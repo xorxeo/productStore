@@ -20,6 +20,8 @@ export class ProductStore {
 
     this._selectedCategoryId = 0;
 
+    this._productItemsFromStorage = {};
+
     makeAutoObservable(this);
   }
 
@@ -71,5 +73,8 @@ export class ProductStore {
       res.push(this._productItems[id]);
     }
     return res;
+  }
+  setProductItemsFromStorage(key, data) {
+    return this._productItems[key] = data;
   }
 }

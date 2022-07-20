@@ -6,6 +6,7 @@ export class UserStore {
         this._user = {};
         this._emailFromLogin = null;
         this._role = null;
+
         makeAutoObservable(this);
     }
 
@@ -30,7 +31,7 @@ export class UserStore {
                 user.setEmailFromLogin(response.email);
                 user.setRole(response.role);
 
-                console.log(user);
+                // console.log(user);
             })
             // .finally(() = )
     }

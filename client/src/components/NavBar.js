@@ -21,7 +21,10 @@ export const NavBar = observer(() => {
   const logOut = () => {
     user.setUser({});
     user.setIsAuth(false);
+    localStorage.removeItem("sessionCart");
     localStorage.removeItem("token");
+    console.log(localStorage.getItem("sessionCart"));
+    console.log(basket.goods);
   };
 
   return (

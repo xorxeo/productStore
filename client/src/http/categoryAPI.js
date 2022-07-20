@@ -23,4 +23,10 @@ export const fetchProductItemsByCategory = async (categoryName) => {
   const { data } = await $host.get(`/categories/${categoryName}`);
 
   return data;
+
+};
+
+export const fetchProductItemById = async (id) => {
+  const { data } = await $authHost.get(`/productItems/${id}`);
+  return data;
 };

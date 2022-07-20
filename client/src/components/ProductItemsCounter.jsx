@@ -6,6 +6,8 @@ import { useContext } from 'react'
 export const ProductItemsCounter = observer(() => {
     const { basket } = useContext(Context);
   return (
-    <div >{Object.keys(basket.goods).length}</div>
-  )
+    <div>
+      {(basket.goods) && Object.keys(basket.goods).length}
+    </div>
+  );
 })

@@ -2,37 +2,42 @@ import { observer } from "mobx-react-lite";
 import React, { useState } from "react";
 import { useEffect, useContext } from "react";
 import { Context } from "../index";
-import { fetchCategory } from "../http/categoryAPI";
-import { checkAuth } from "../http/userAPI";
+import { fetchCategory, fetchProductItemById } from "../http/categoryAPI";
+import { checkUser } from "../http/userAPI";
 
 export const CommonDataContainer = observer((props) => {
-  const { product, user } = useContext(Context);
-  const [loading, setLoading] = useState(true);
+  const { product, user, basket } = useContext(Context);
 
   useEffect(() => {
     fetchCategory().then((data) => product.setCategoryProducts(data));
   }, []);
 
-  // useEffect(() => {
-  //   checkAuth({ user })
-  //     .then((data) => {
-  //       user.setEmailFromLogin(data.email);
-  //       user.setIsAuth(true);
-  //       user.setRole(data.role);
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      user.setUserParameters(user, checkUser);
+      //  console.log('auth useEffect done');
+    }
+  }, [user.user.id]);
 
-  //       console.log(user);
-  //     })
-  //     .finally(() => setLoading(false));
-  // }, [user.user.id]);
+  useEffect(() => {
+    if (Object.keys(basket.goods).length != 0 && user.isAuth) {
+      basket.setSessionBasketToLocalStorage(basket.goods);
+    }
+  }, [Object.entries(basket.goods)]);
 
-   useEffect(() => {
-     if (localStorage.getItem('token')) {
-       user.setUserParameters(user, checkAuth);
-       console.log('auth useEffect done');
-     } else {
-       console.log('401 user is not authorized');
-     }
-   }, [user.user.id]);
+  useEffect(() => {
+    if (localStorage.getItem("sessionCart")) {
+      basket.setGoodsFromSessionCart(localStorage.getItem("sessionCart"));
+      //  console.log("basket.goods from useEffect COMMOMDATA", basket.goods);
+      if (Object.keys(basket.goods).length > 0) {
+        for (let key of Object.keys(basket.goods)) {
+          fetchProductItemById(key).then((data) => {
+            product.setProductItemsFromStorage(key, data);
+          });
+        }
+      }
+    }
+  }, [localStorage]);
 
   if (product.categoryProducts.length === 0) {
     return null;

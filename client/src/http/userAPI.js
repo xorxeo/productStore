@@ -18,10 +18,10 @@ export const login = async (email, password) => {
   return jwtDecode(data.token);
 };
 
-export const checkAuth = async (email, password) => {
+export const checkUser = async (email, password) => {
   const { data } = await $authHost.get("user/auth");
   const decode = jwtDecode(data.token);
-  console.log("decoded token from check userAPI", decode);
+  // console.log("decoded token from check userAPI", decode);
 
   return decode;
 };

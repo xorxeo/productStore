@@ -4,11 +4,13 @@ export class BasketStore {
   $userStore;
   $productStore;
   goods = {};
+  
 
   constructor(UserStore, ProductStore) {
     this.$userStore = UserStore;
     this.$productStore = ProductStore;
-
+    this.goods = {};
+    
     makeAutoObservable(this);
   }
 
@@ -26,7 +28,14 @@ export class BasketStore {
     }
     if (this.goods[id] === 0) {
       delete this.goods[id];
-      // console.log(this.goods)
     }
+  }
+
+  setSessionBasketToLocalStorage(goods) {
+    localStorage.setItem("sessionCart", JSON.stringify(this.goods));
+  }
+
+  setGoodsFromSessionCart(storage) {
+    this.goods = JSON.parse(storage);
   }
 }
