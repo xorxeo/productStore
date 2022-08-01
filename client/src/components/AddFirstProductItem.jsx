@@ -7,17 +7,20 @@ export const AddFirstProductItem = observer(({ props }) => {
   const { basket } = useContext(Context);
   return (
     <div
-      className="add-first-product-item-button flex w-10 font-medium hover:shadow-lg hover:shadow-slate-400 hover:rounded-md bg-slate-300 text-center place-content-center  text-lg cursor-default"
+      className="add-first-product-item-button flex items-center h-[30px] border-[1px] border-lime-600 w-content font-medium rounded-md hover:shadow-lg text-center place-content-center text-md cursor-default"
       onClick={(e) => {
         e.stopPropagation();
       }}
     >
-      <button className="flex box-border w-full justify-center"
+      <button
+        id="btnId"
+        className="flex w-full p-1 "
         onClick={() => {
           basket.addItem(props.id);
         }}
+        button="button"
       >
-        +
+        <span className="p-0">Add +</span>
       </button>
     </div>
   );

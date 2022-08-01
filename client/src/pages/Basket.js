@@ -9,6 +9,8 @@ export const Basket = observer(() => {
   console.log(basket.goods)
 
   return (
-    <div className="basket-container">{basket.goods && <BasketItem />}</div>
+    <div className="basket-container flex justify-center">
+      {basket.goods && <BasketItem />}
+    </div>
   );
 });

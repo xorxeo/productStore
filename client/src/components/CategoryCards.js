@@ -13,10 +13,10 @@ export const CategoryCards = observer(({ product }) => {
   // console.log(product);
 
   return (
-    <div className="grid grid-cols-5 grid-rows-4 gap-4 w-full h-full p-4 items-center">
+    <div className="grid grid-cols-5 grid-rows-4 gap-4 w-full h-full p-4 items-center bg-gray-200">
       {product.categoryProducts.map((categoryProductsItem) => (
         <div
-          className="flex flex-col w-full h-full justify-center items-center rounded-xl bg-slate-300"
+          className="flex flex-col w-full h-full justify-center items-center  rounded-xl bg-slate-300"
           key={categoryProductsItem.id}
           onClick={() => {
             navigate(`${CATEGORY_ROUTE}/${categoryProductsItem.category}`);

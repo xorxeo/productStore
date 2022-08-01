@@ -15,12 +15,12 @@ export const BasketModal = ({ show, close }) => {
     <div
       show={show}
       close={close}
-      className="modal-background flex absolute flex-col items-center right-10 top-8 p-10 bg-slate-300 rounded-md z-10"
+      className="modal-background flex flex-col  lg:p-10  bg-slate-100 rounded-md z-10"
     >
       <div className="flex flex-col w-fit ">
         <p className="text-lg font-medium">Hello, {user.emailFromLogin}!</p>
       </div>
-      <div>{basket.goods && <BasketItem />}</div>
+      <div>{<BasketItem />}</div>
     </div>
   );
 };

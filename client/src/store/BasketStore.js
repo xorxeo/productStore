@@ -1,16 +1,16 @@
 import { makeAutoObservable } from "mobx";
 
 export class BasketStore {
-  $userStore;
+  $userCart;
   $productStore;
   goods = {};
-  
 
   constructor(UserStore, ProductStore) {
     this.$userStore = UserStore;
     this.$productStore = ProductStore;
     this.goods = {};
-    
+    this.goodsForCart = [];
+
     makeAutoObservable(this);
   }
 
@@ -31,11 +31,17 @@ export class BasketStore {
     }
   }
 
-  setSessionBasketToLocalStorage(goods) {
+  setSessionCartToLocalStorage(goods) {
     localStorage.setItem("sessionCart", JSON.stringify(this.goods));
   }
 
-  setGoodsFromSessionCart(storage) {
+  setGoodsFromLocalStorage(storage) {
     this.goods = JSON.parse(storage);
+  }
+
+  setProductItemsForCartFromGoods() {
+    this.goodsForCart = this.$productStore.getProductByIds(
+      Object.keys(this.goods)
+    );
   }
 }

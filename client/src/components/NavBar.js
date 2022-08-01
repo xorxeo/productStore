@@ -1,6 +1,6 @@
 import React, { useContext, useState, useTransition } from "react";
 import { Context } from "../index";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   ADMIN_ROUTE,
   SHOP_ROUTE,
@@ -11,12 +11,17 @@ import {
 import { observer } from "mobx-react-lite";
 import { BasketModal } from "./modals/BasketModal";
 import { ProductItemsCounter } from "./ProductItemsCounter";
+import { Search } from "./search/Search";
+import { useEffect } from "react";
+import { toJS } from "mobx";
 
 export const NavBar = observer(() => {
-  const { user, basket } = useContext(Context);
+  const { user, basket, product } = useContext(Context);
   const location = useLocation();
   const isLogin = location.pathname === REGISTRATION_ROUTE;
   const navigate = useNavigate();
+
+  const [searchValue, setSearchValue] = useState("");
 
   const logOut = () => {
     user.setUser({});
@@ -27,32 +32,48 @@ export const NavBar = observer(() => {
     console.log(basket.goods);
   };
 
+  useEffect(() => {
+    product.getProductItemsBySearchValue(
+      searchValue,
+      product._selectedCategory
+    );
+  }, [searchValue, product._selectedCategory]);
+
   return (
-    <div className="navbar flex absolute flex-row w-screen h-fit pr-10 text-l  shadow-slate-500 rounded-b-md  bg-slate-400 hover:shadow-xl ease-in-out 1s">
-      <NavLink to={SHOP_ROUTE}>
-        <button className="pr-3 pl-3 pb-1 pt-1 ml-3 shadow-lg border rounded-md font-sans text-l text-white hover:scale-110 ease-in-out before:text-pink-700">
+    <div className="navbar flex absolute flex-row w-screen h-fit pr-10 text-l z-10 bg-gray-300 rounded-b-md ease-in-out 1s">
+      <NavLink to={SHOP_ROUTE} className="ml-3">
+        <button
+          className="pr-3 pl-3 pb-1 pt-1   rounded-md font-supernettCnLight text-3xl font-bold text-lime-600 hover:scale-110 ease-in-out before:text-pink-700"
+          button="shop"
+        >
           SHOP
         </button>
       </NavLink>
 
+      <Search
+        value={searchValue}
+        onInputValueHandler={setSearchValue}
+        className=""
+      />
+
       {user.isAuth && user?.role === "USER" && (
-        <div className="  flex space-x-3 ml-auto ">
-          <div className="group flex relative">
-            <div className="count flex absolute left-12 -top-1 w-7 h-5 justify-center items-center text-base text-cyan-50 bg-red-500 rounded-xl z-10">
-              <ProductItemsCounter />
+        <div className="cart-logout-wrapper flex relative ">
+          <div className="group count  flex absolute left-7 -top-1 w-6 h-6 justify-center items-center  border-2 border-lime-600 rounded-full font-supernettCnLight text-xl font-bold text-lime-600 z-10 cursor-default">
+            <ProductItemsCounter />
+            <div className="hidden group-hover:flex absolute top-5 -right-36 ">
+              {<BasketModal />}
             </div>
-            {/* transition ease-in-out duration-1000   before:content-['5']  -top-3 -right-3*/}
-            <NavLink to={BASKET_ROUTE}>
-              <button className=" basket-wrapper relative pl-5 pr-5 ">
-                <img className="w-8 h-8" src="../img/basket.webp"></img>
-              </button>
-            </NavLink>
-            <div className="hidden group-hover:flex ">{<BasketModal />}</div>
           </div>
-          <div>
+          <NavLink to={BASKET_ROUTE}>
+            <button className=" basket-wrapper relative pt-2 m-auto">
+              <img className="w-h-7 h-7" src="../img/shopping-cart.png"></img>
+            </button>
+          </NavLink>
+
+          <div className="logout-wrapper flex ml-9">
             <NavLink to={SHOP_ROUTE}>
               <button
-                className="pr-3 pl-3 pb-1 pt-1  shadow-sm border rounded-md font-sans text-l text-white "
+                className="flex pr-3 pl-3 pb-1 pt-1 shadow-sm rounded-md font-supernettCnLight text-3xl font-bold text-lime-600 "
                 onClick={() => {
                   logOut();
                 }}
@@ -67,12 +88,12 @@ export const NavBar = observer(() => {
       {user?.role === "ADMIN" && user.isAuth && (
         <div className="flex space-x-3 ml-auto ">
           <NavLink to={ADMIN_ROUTE}>
-            <button className="pr-3 pl-3 pb-1 pt-1  shadow-sm border rounded-md font-sans text-l text-white hover:scale-110 ease-in-out">
+            <button className="pr-3 pl-3 pb-1 pt-1  shadow-sm  rounded-md font-supernettCnLight text-3xl font-bold text-lime-600 hover:scale-110 ease-in-out">
               ADMINPANEL
             </button>
           </NavLink>
           <button
-            className="pr-3 pl-3 pb-1 pt-1  shadow-sm border rounded-md font-sans text-l text-white hover:scale-110 ease-in-out"
+            className="pr-3 pl-3 pb-1 pt-1  shadow-sm  rounded-md font-supernettCnLight text-3xl font-bold text-lime-600 hover:scale-110 ease-in-out"
             onClick={() => {
               user.setIsAuth(false);
               navigate(SHOP_ROUTE);
@@ -92,7 +113,7 @@ export const NavBar = observer(() => {
       {!user.isAuth && (
         <div className="ml-auto">
           <NavLink to={LOGIN_ROUTE}>
-            <button className="pr-3 pl-3 pb-1 pt-1  shadow-sm border rounded-md font-sans text-l text-white hover:scale-110 ease-in-out">
+            <button className="pr-3 pl-3 pb-1 pt-1  shadow-sm border rounded-md font-sans text-l text-lime-600 text-lg font-semibold  hover:scale-110 ease-in-out">
               LOGIN/SIGNIN
             </button>
           </NavLink>

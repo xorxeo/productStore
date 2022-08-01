@@ -15,19 +15,18 @@ export const CommonDataContainer = observer((props) => {
   useEffect(() => {
     if (localStorage.getItem("token")) {
       user.setUserParameters(user, checkUser);
-      //  console.log('auth useEffect done');
     }
   }, [user.user.id]);
 
   useEffect(() => {
     if (Object.keys(basket.goods).length != 0 && user.isAuth) {
-      basket.setSessionBasketToLocalStorage(basket.goods);
+      basket.setSessionCartToLocalStorage(basket.goods);
     }
   }, [Object.entries(basket.goods)]);
 
   useEffect(() => {
     if (localStorage.getItem("sessionCart")) {
-      basket.setGoodsFromSessionCart(localStorage.getItem("sessionCart"));
+      basket.setGoodsFromLocalStorage(localStorage.getItem("sessionCart"));
       //  console.log("basket.goods from useEffect COMMOMDATA", basket.goods);
       if (Object.keys(basket.goods).length > 0) {
         for (let key of Object.keys(basket.goods)) {
@@ -42,6 +41,5 @@ export const CommonDataContainer = observer((props) => {
   if (product.categoryProducts.length === 0) {
     return null;
   }
-
   return <>{props.children}</>;
 });

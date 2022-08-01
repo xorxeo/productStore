@@ -7,26 +7,24 @@ import { Counter } from "./Counter";
 export const BasketItem = observer(() => {
   const { basket, user, product } = useContext(Context);
 
-  const filteredBasketProductItems = product.getProductByIds(
-    Object.keys(basket.goods)
-  );
-
-  // console.log("filteredBasketProductItems", filteredBasketProductItems);
+  useEffect(() => {
+    basket.setProductItemsForCartFromGoods();
+  }, [Object.values(basket.goods).length]);
 
   return (
-    <div className="basket-modal flex pt-14 justify-center cursor-default">
-      <table className="table  ">
-        <thead className="text-center">
-          <tr className="">
-            <th className="font-normal">Product</th>
-            <th className="font-normal">Price</th>
-            <th className="font-normal">Quantity</th>
-            <th className="font-normal">Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          {user.isAuth &&
-            filteredBasketProductItems.map((product) => (
+    <div className="basket-modal flex md:w-[600px] sm:w-[400px] pt-16 pl-4 pr-4  cursor-default">
+      {basket.goods && basket.goodsForCart.length > 0 ? (
+        <table className="table  ">
+          <thead className="text-center">
+            <tr className="">
+              <th className="font-normal">Product</th>
+              <th className="font-normal">Price</th>
+              <th className="font-normal">Quantity</th>
+              <th className="font-normal">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {basket.goodsForCart.map((product) => (
               <tr key={product.price * basket.goods[product.id]} className="">
                 <td
                   key={product.productName}
@@ -46,14 +44,14 @@ export const BasketItem = observer(() => {
                 <td key={product.createdAt} className="font-medium text-center">
                   {product.price * basket.goods[product.id]}
                 </td>
-                <td>
-                  {/* <button key={product.img}>DELETE</button> */}
-                  {<Counter props={product} />}
-                </td>
+                <td>{<Counter props={product} />}</td>
               </tr>
             ))}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      ) : (
+        <div>Basket is empty</div>
+      )}
     </div>
   );
 });

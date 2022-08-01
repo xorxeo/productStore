@@ -1,5 +1,5 @@
-import { makeAutoObservable } from "mobx";
-
+import { makeAutoObservable, toJS } from "mobx";
+import { fetchProductItemsByCategory } from "../http/categoryAPI";
 export class ProductStore {
   constructor() {
     this._categoryProducts = [
@@ -12,15 +12,14 @@ export class ProductStore {
     ];
 
     this._productItems = {};
-
     this._productItemIdsByCategoryName = {};
-
     this._selectedCategory = {};
     this._selectedProductItem = {};
-
     this._selectedCategoryId = 0;
-
     this._productItemsFromStorage = {};
+    this._productItemsBySearchValue = [];
+    this._searchValue = "";
+    this._productItemsForRender = [];
 
     makeAutoObservable(this);
   }
@@ -41,6 +40,35 @@ export class ProductStore {
   setSelectedProductItem(productItem) {
     this._selectedProductItem = productItem;
   }
+  setSelectedCategory(categoryName) {
+    return (this._selectedCategory = categoryName);
+  }
+
+  setProductItemsFromStorage(key, data) {
+    return (this._productItems[key] = data);
+  }
+
+  setProductItemsData(categoryName) {
+    fetchProductItemsByCategory(categoryName).then((productItems) => {
+      this.setProductItems(productItems, categoryName);
+      this.setSelectedCategory(categoryName);
+    });
+  }
+
+  setSelectedCategoryIdByCategoryName(categoryName) {
+    const category = this.getCategoryByName(categoryName);
+    if (category?.id) {
+      this.setSelectedCategoryId(category.id);
+    }
+  }
+
+  setProductItemsForRender(categoryName) {
+    if (this._productItemsBySearchValue.length > 0) {
+      this._productItems = this._productItemsBySearchValue;
+    } else {
+      this._productItems = this.getProductByCategoryName(categoryName);
+    }
+  }
 
   get categoryProducts() {
     return this._categoryProducts;
@@ -57,6 +85,7 @@ export class ProductStore {
   get selectedProductItem() {
     return this._selectedProductItem;
   }
+
   getCategoryByName(categoryName) {
     const qq = this._categoryProducts.find((elem) => {
       return elem.category === categoryName;
@@ -74,7 +103,32 @@ export class ProductStore {
     }
     return res;
   }
-  setProductItemsFromStorage(key, data) {
-    return this._productItems[key] = data;
+
+  getProductItemsBySearchValue(searchValue, categoryName) {
+    // console.log(searchValue);
+    if (searchValue.length !== 0) {
+      this._productItemsBySearchValue = Object.values(
+        this._productItems
+      ).filter(
+        (item) =>
+          item.productName.toLowerCase().includes(searchValue.toLowerCase()) &&
+          item.category == categoryName
+      );
+      // console.log(toJS(this._selectedCategory));
+      // console.log(toJS(this._productItemsBySearchValue));
+      if (
+        this._productItemsBySearchValue.length == 0 &&
+        searchValue.length > 2
+      ) {
+        this._searchValue = searchValue;
+        console.log(this._searchValue);
+      }
+      return this._productItemsBySearchValue;
+    }
+    if (searchValue == "") {
+      this._productItemsBySearchValue = {};
+      // console.log(toJS(this._productItemsBySearchValue));
+      return this._productItemsBySearchValue;
+    }
   }
 }

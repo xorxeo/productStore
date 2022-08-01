@@ -6,7 +6,7 @@ import { useContext } from 'react'
 export const ProductItemsCounter = observer(() => {
     const { basket } = useContext(Context);
   return (
-    <div>
+    <div className='flex justify-center'>
       {(basket.goods) && Object.keys(basket.goods).length}
     </div>
   );
