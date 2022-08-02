@@ -23,7 +23,18 @@ export const CategoryProducts = observer(() => {
     product.setSelectedCategoryIdByCategoryName(categoryName);
   }, [categoryName]);
 
-  // console.log(product.productItems);
+  // useEffect(() => {
+  //   if (categoryName) {
+  //     console.log(categoryName);
+  //     product.getProductItemsForCategoryProductsRendering(categoryName);
+  //   }
+  //   console.log("useEffect working");
+  //   console.log(
+  //     "product._productItemsForCategoryProductsRendering",
+  //     product._productItemsForCategoryProductsRendering
+  //   );
+  //   console.log("useEffect _searchValue", product._searchValue);
+  // }, [categoryName, product._searchValue]);
 
   let productItems = [];
 
@@ -45,9 +56,16 @@ export const CategoryProducts = observer(() => {
         </div> */}
       </div>
 
-      <div className="product-item relative grid p-2  md:grid-cols-3 md:grid-rows-2 md:gap-4 lg:col-span-3 lg:grid-cols-4 lg:grid-rows-3 lg:gap-10 ">
-        {productItems.length > 0 &&
-          productItems.map((productItem) => (
+      {product._searchValue.length !== 0 &&
+      Object.values(product._productItemsBySearchValue).length == 0 ? (
+        <div>
+          Product
+          <div>{product._searchValue}</div>
+          not found ... (
+        </div>
+      ) : (
+        <div className="product-item relative grid p-2  md:grid-cols-3 md:grid-rows-2 md:gap-4 lg:col-span-3 lg:grid-cols-4 lg:grid-rows-3 lg:gap-10 ">
+          {productItems.map((productItem) => (
             <div className="grid relative" key={productItem.id}>
               <div className="card-image grid absolute w-[90px] h-[90px]  rounded-full items-center  left-4  bg-transparent shadow-xl ">
                 <img
@@ -91,7 +109,8 @@ export const CategoryProducts = observer(() => {
               </div>
             </div>
           ))}
-      </div>
+        </div>
+      )}
     </div>
   );
 });

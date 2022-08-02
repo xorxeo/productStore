@@ -1,3 +1,4 @@
+import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
 import { useContext } from "react";
@@ -9,11 +10,13 @@ export const BasketItem = observer(() => {
 
   useEffect(() => {
     basket.setProductItemsForCartFromGoods();
+    // console.log(toJS(basket.goodsForCart));
+    // console.log(Object.values(basket.goods).length);
   }, [Object.values(basket.goods).length]);
 
   return (
     <div className="basket-modal flex md:w-[600px] sm:w-[400px] pt-16 pl-4 pr-4  cursor-default">
-      {basket.goods && basket.goodsForCart.length > 0 ? (
+      {basket.goodsForCart.length  ? (
         <table className="table  ">
           <thead className="text-center">
             <tr className="">
@@ -24,34 +27,29 @@ export const BasketItem = observer(() => {
             </tr>
           </thead>
           <tbody>
-            {basket.goods &&
-              basket.goodsForCart.length > 0 &&
-              basket.goodsForCart.map((product) => (
-                <tr key={product.price * basket.goods[product.id]} className="">
-                  <td
-                    key={product.productName}
-                    className="font-medium text-center"
-                  >
-                    {product.productName}
-                  </td>
-                  <td key={product.price} className="font-medium text-center">
-                    {product.price}
-                  </td>
-                  <td
-                    key={basket.goods[product.id]}
-                    className="font-medium text-center"
-                  >
-                    {basket.goods[product.id]}
-                  </td>
-                  <td
-                    key={product.createdAt}
-                    className="font-medium text-center"
-                  >
-                    {product.price * basket.goods[product.id]}
-                  </td>
-                  <td>{<Counter props={product} />}</td>
-                </tr>
-              ))}
+            {basket.goodsForCart.map((product) => (
+              <tr key={product.price * basket.goods[product.id]} className="">
+                <td
+                  key={product.productName}
+                  className="font-medium text-center"
+                >
+                  {product.productName}
+                </td>
+                <td key={product.price} className="font-medium text-center">
+                  {product.price}
+                </td>
+                <td
+                  key={basket.goods[product.id]}
+                  className="font-medium text-center"
+                >
+                  {basket.goods[product.id]}
+                </td>
+                <td key={product.createdAt} className="font-medium text-center">
+                  {product.price * basket.goods[product.id]}
+                </td>
+                <td>{<Counter props={product} />}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       ) : (

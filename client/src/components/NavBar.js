@@ -33,10 +33,7 @@ export const NavBar = observer(() => {
   };
 
   useEffect(() => {
-    product.getProductItemsBySearchValue(
-      searchValue,
-      product._selectedCategory
-    );
+    product.getProductItemsBySearchValue(searchValue, product._selectedCategory);
   }, [searchValue, product._selectedCategory]);
 
   return (

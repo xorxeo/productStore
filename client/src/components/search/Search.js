@@ -12,12 +12,12 @@ export const Search = observer((props) => {
         value={value}
         onChange={(e) => {
             onInputValueHandler(e.target.value);
-            // console.log(value);
+            console.log(e.target.value);
            
-             if (!e.target.value && value) {
-                 e.target.value = "";
-                 console.log((e.target.value));
-             }
+            //  if (!e.target.value && value) {
+            //      e.target.value = "";
+            //      console.log((e.target.value));
+            //  }
               }}
          
         className="bg-gray-300 rounded-md border-0 focus:ring-lime-700"

@@ -20,6 +20,7 @@ export class ProductStore {
     this._productItemsBySearchValue = [];
     this._searchValue = "";
     this._productItemsForRender = [];
+    this._productItemsForCategoryProductsRendering = [];
 
     makeAutoObservable(this);
   }
@@ -105,7 +106,8 @@ export class ProductStore {
   }
 
   getProductItemsBySearchValue(searchValue, categoryName) {
-    // console.log(searchValue);
+    this._searchValue = searchValue;
+
     if (searchValue.length !== 0) {
       this._productItemsBySearchValue = Object.values(
         this._productItems
@@ -114,21 +116,22 @@ export class ProductStore {
           item.productName.toLowerCase().includes(searchValue.toLowerCase()) &&
           item.category == categoryName
       );
-      // console.log(toJS(this._selectedCategory));
-      // console.log(toJS(this._productItemsBySearchValue));
-      if (
-        this._productItemsBySearchValue.length == 0 &&
-        searchValue.length > 2
-      ) {
-        this._searchValue = searchValue;
-        console.log(this._searchValue);
-      }
       return this._productItemsBySearchValue;
     }
     if (searchValue == "") {
       this._productItemsBySearchValue = {};
-      // console.log(toJS(this._productItemsBySearchValue));
-      return this._productItemsBySearchValue;
+    }
+  }
+
+  getProductItemsForCategoryProductsRendering(categoryName) {
+    if (this._productItemsBySearchValue.length > 0) {
+      console.log("?????", this._productItemsBySearchValue);
+      this._productItemsForCategoryProductsRendering =
+        this._productItemsBySearchValue;
+    } else {
+      console.log("!!!!!!!!", this._productItemsBySearchValue);
+      this._productItemsForCategoryProductsRendering =
+        this.getProductByCategoryName(categoryName);
     }
   }
 }
