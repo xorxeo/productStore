@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, toJS } from "mobx";
 
 export class BasketStore {
   $userCart;
@@ -28,6 +28,11 @@ export class BasketStore {
     }
     if (this.goods[id] === 0) {
       delete this.goods[id];
+      for (let key in this.goodsForCart) {
+        if (this.goodsForCart[key].id === id) {
+          delete this.goodsForCart[key];
+        }
+      }
     }
   }
 

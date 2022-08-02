@@ -24,29 +24,34 @@ export const BasketItem = observer(() => {
             </tr>
           </thead>
           <tbody>
-            {basket.goodsForCart.map((product) => (
-              <tr key={product.price * basket.goods[product.id]} className="">
-                <td
-                  key={product.productName}
-                  className="font-medium text-center"
-                >
-                  {product.productName}
-                </td>
-                <td key={product.price} className="font-medium text-center">
-                  {product.price}
-                </td>
-                <td
-                  key={basket.goods[product.id]}
-                  className="font-medium text-center"
-                >
-                  {basket.goods[product.id]}
-                </td>
-                <td key={product.createdAt} className="font-medium text-center">
-                  {product.price * basket.goods[product.id]}
-                </td>
-                <td>{<Counter props={product} />}</td>
-              </tr>
-            ))}
+            {basket.goods &&
+              basket.goodsForCart.length > 0 &&
+              basket.goodsForCart.map((product) => (
+                <tr key={product.price * basket.goods[product.id]} className="">
+                  <td
+                    key={product.productName}
+                    className="font-medium text-center"
+                  >
+                    {product.productName}
+                  </td>
+                  <td key={product.price} className="font-medium text-center">
+                    {product.price}
+                  </td>
+                  <td
+                    key={basket.goods[product.id]}
+                    className="font-medium text-center"
+                  >
+                    {basket.goods[product.id]}
+                  </td>
+                  <td
+                    key={product.createdAt}
+                    className="font-medium text-center"
+                  >
+                    {product.price * basket.goods[product.id]}
+                  </td>
+                  <td>{<Counter props={product} />}</td>
+                </tr>
+              ))}
           </tbody>
         </table>
       ) : (

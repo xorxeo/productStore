@@ -5,16 +5,12 @@ import { createCategory } from "../../http/categoryAPI";
 import { BasketItem } from "../BasketItem";
 import { Context } from "../../index";
 
-export const BasketModal = ({ show, close }) => {
-  const { basket, user } = useContext(Context);
-  const { product } = useContext(Context);
-
-  // console.log("BasketModal", user);
+export const BasketModal = observer(() => {
+  const { user } = useContext(Context);
+ 
 
   return (
     <div
-      show={show}
-      close={close}
       className="modal-background flex flex-col  lg:p-10  bg-slate-100 rounded-md z-10"
     >
       <div className="flex flex-col w-fit ">
@@ -23,4 +19,5 @@ export const BasketModal = ({ show, close }) => {
       <div>{<BasketItem />}</div>
     </div>
   );
-};
+}
+)
