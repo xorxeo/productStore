@@ -78,7 +78,7 @@ export const CategoryProducts = observer(() => {
                 key={`${productItem.id}${productItem.productName}`}
                 className=" card-wrapper group grid mt-[30px] bg-slate-100 rounded-xl border-[2px] hover:border-lime-600  sm:text-sm lg:text-base  shadow-md"
                 onClick={(e) => {
-                  navigate(`${PRODUCT_ROUTE}/${productItem.productName}`);
+                  navigate(`${PRODUCT_ROUTE}/${productItem.id}`);
                   product.setSelectedProductItem(productItem);
                 }}
               >

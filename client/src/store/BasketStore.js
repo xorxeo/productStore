@@ -10,6 +10,7 @@ export class BasketStore {
     this.$productStore = ProductStore;
     this.goods = {};
     this.goodsForCart = [];
+    this.goodsForCartDoneFlag = false;
 
     makeAutoObservable(this);
   }
@@ -47,6 +48,12 @@ export class BasketStore {
   setProductItemsForCartFromGoods() {
     this.goodsForCart = this.$productStore.getProductByIds(
       Object.keys(this.goods)
+    );
+  }
+
+  getGoodsForCartDoneFlag(property, goods) {
+    return this.goodsForCartDoneFlag = Boolean(
+      goods.some((elem) => elem.hasOwnProperty(property))
     );
   }
 }

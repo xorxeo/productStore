@@ -6,6 +6,7 @@ import { Auth } from "./pages/Auth";
 import { CategoryProducts } from "./components/CategoryProducts";
 import { ProductItem } from "./components/ProductItem";
 import { Products } from "./pages/Product";
+import { BasketItem } from "./components/BasketItem";
 
 import {
   ADMIN_ROUTE,
@@ -29,6 +30,7 @@ export const authRoutes = [
 ];
 
 export const publicRoutes = [
+  
   {
     path: SHOP_ROUTE,
     Component: <Shop />,

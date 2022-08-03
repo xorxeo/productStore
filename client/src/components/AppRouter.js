@@ -7,18 +7,18 @@ import { authRoutes, publicRoutes } from "../routes";
 export const AppRouter = observer(() => {
   const { user } = useContext(Context);
 
-  // console.log("AppRouter", user);
+  // console.log("user?.isAuth", user?.isAuth);
   return (
     <Routes>
-      {user.isAuth &&
+      user.isAuth ? {
         authRoutes.map(({ path, Component }) => (
           <Route key={path} path={path} element={Component} />
         ))}
+      :
       {publicRoutes.map(({ path, Component }) => (
         <Route key={path} path={path} element={Component} />
       ))}
       <Route path="*" element={<Navigate to="/" />} />
-      
     </Routes>
   );
 });

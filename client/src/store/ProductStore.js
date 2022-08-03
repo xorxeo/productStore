@@ -114,11 +114,11 @@ export class ProductStore {
       ).filter(
         (item) =>
           item.productName.toLowerCase().includes(searchValue.toLowerCase()) &&
-          item.category == categoryName
+          item.category === categoryName
       );
       return this._productItemsBySearchValue;
     }
-    if (searchValue == "") {
+    if (searchValue === "") {
       this._productItemsBySearchValue = {};
     }
   }

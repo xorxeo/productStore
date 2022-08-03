@@ -1,6 +1,7 @@
 import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
+import { useState } from "react";
 import { useContext } from "react";
 import { Context } from "../index";
 import { Counter } from "./Counter";
@@ -10,13 +11,12 @@ export const BasketItem = observer(() => {
 
   useEffect(() => {
     basket.setProductItemsForCartFromGoods();
-    // console.log(toJS(basket.goodsForCart));
-    // console.log(Object.values(basket.goods).length);
+    basket.getGoodsForCartDoneFlag("productName", basket.goodsForCart);
   }, [Object.values(basket.goods).length]);
 
   return (
     <div className="basket-modal flex md:w-[600px] sm:w-[400px] pt-16 pl-4 pr-4  cursor-default">
-      {basket.goodsForCart.length  ? (
+      {basket.goodsForCart.length > 0 && basket.goodsForCartDoneFlag ? (
         <table className="table  ">
           <thead className="text-center">
             <tr className="">
