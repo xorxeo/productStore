@@ -7,9 +7,9 @@ module.exports = {
       display: ["group-hover"],
       opacity: ["group-hover"],
       transform: ["group-hover"],
-      
+
       backgroundImage: {
-        'search-button': "url('../public/img/search.png')"
+        "search-button": "url('../public/img/search.png')",
       },
 
       fontFamily: {
@@ -32,6 +32,9 @@ module.exports = {
       animation: {
         wiggle: "wiggle 1s ease-in-out infinite",
         innerRotate: "innerRotate .6s linear infinite;",
+      },
+      width: {
+        inputWidth: "3.5 rem",
       },
     },
   },

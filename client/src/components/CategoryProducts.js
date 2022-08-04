@@ -3,10 +3,10 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../index";
 import { PRODUCT_ROUTE } from "../utils/consts";
-import { fetchProductItemsByCategory } from "../http/categoryAPI";
 import { Counter } from "./Counter";
 import { AddFirstProductItem } from "./AddFirstProductItem";
-import { toJS } from "mobx";
+import { PriceRange } from "./Filter/PriceRange";
+
 
 export const CategoryProducts = observer(() => {
   const { product } = useContext(Context);
@@ -23,19 +23,6 @@ export const CategoryProducts = observer(() => {
     product.setSelectedCategoryIdByCategoryName(categoryName);
   }, [categoryName]);
 
-  // useEffect(() => {
-  //   if (categoryName) {
-  //     console.log(categoryName);
-  //     product.getProductItemsForCategoryProductsRendering(categoryName);
-  //   }
-  //   console.log("useEffect working");
-  //   console.log(
-  //     "product._productItemsForCategoryProductsRendering",
-  //     product._productItemsForCategoryProductsRendering
-  //   );
-  //   console.log("useEffect _searchValue", product._searchValue);
-  // }, [categoryName, product._searchValue]);
-
   let productItems = [];
 
   if (product._productItemsBySearchValue.length > 0) {
@@ -47,13 +34,14 @@ export const CategoryProducts = observer(() => {
   return (
     <div
       id="container"
-      className="products-container grid h-[800px] lg:grid-cols-4  min-w-full pt-[100px] pb-4 pl-4 pr-4 mx-0 bg-gray-200"
+      className="products-container grid  lg:grid-cols-4 min-w-full pt-28 pb-4 pl-4 pr-4 mx-0 bg-gray-200"
     >
-      <div className="categories-modal bg-gray-300 grid ">
-        Categories
-        {/* <div>
-          {productItems?.length && }
-        </div> */}
+      <div className="categories-modal bg-gray-300 flex flex-col  m-0 p-0">
+        <span className="flex h-8 font-medium text-xl pl-3 pt-2">Filter</span>
+        <div className="price-range-wrapper flex h-40 pt-2">{<PriceRange />}</div>
+        <div className="brand-wrapper flex h-40 ">{/* <PriceRange /> */}</div>
+        <div className="volume-wrapper flex h-40 ">{/* <PriceRange /> */}</div>
+        <div className="country-wrapper flex h-40 ">{/* <PriceRange /> */}</div>
       </div>
 
       {product._searchValue.length !== 0 &&
@@ -61,7 +49,7 @@ export const CategoryProducts = observer(() => {
         <div>
           Product
           <div>{product._searchValue}</div>
-          not found ... (
+          not found ...
         </div>
       ) : (
         <div className="product-item relative grid p-2  md:grid-cols-3 md:grid-rows-2 md:gap-4 lg:col-span-3 lg:grid-cols-4 lg:grid-rows-3 lg:gap-10 ">
