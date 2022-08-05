@@ -38,7 +38,16 @@ export const CategoryProducts = observer(() => {
     >
       <div className="categories-modal bg-gray-300 flex flex-col  m-0 p-0">
         <span className="flex h-8 font-medium text-xl pl-3 pt-2">Filter</span>
-        <div className="price-range-wrapper flex h-40 pt-2">{<PriceRange />}</div>
+        <div className="price-range-wrapper flex h-40 pt-2 ">
+          <PriceRange
+            min={0}
+            max={1000}
+            onChange={({ min, max }) =>
+              console.log(`min = ${min}, max = ${max}`)
+              
+            }
+          />
+        </div>
         <div className="brand-wrapper flex h-40 ">{/* <PriceRange /> */}</div>
         <div className="volume-wrapper flex h-40 ">{/* <PriceRange /> */}</div>
         <div className="country-wrapper flex h-40 ">{/* <PriceRange /> */}</div>

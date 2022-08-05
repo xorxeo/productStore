@@ -1,7 +1,8 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
-  content: ["./src/**/*.{html,js}"],
+  content: ['./public/index.html',
+    "./src/**/*.{html,js,jsx}"],
   theme: {
     extend: {
       display: ["group-hover"],

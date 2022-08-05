@@ -15,6 +15,7 @@ export const BasketModal = observer(() => {
     >
       <div className="flex flex-col w-fit ">
         <p className="text-lg font-medium">Hello, {user.emailFromLogin}!</p>
+        
       </div>
       <div>{<BasketItem />}</div>
     </div>
