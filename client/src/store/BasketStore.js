@@ -53,7 +53,7 @@ export class BasketStore {
 
   getGoodsForCartDoneFlag(property, goods) {
     return this.goodsForCartDoneFlag = Boolean(
-      goods.some((elem) => elem.hasOwnProperty(property))
+      goods.some((elem) => elem?.hasOwnProperty(property))
     );
   }
 }
