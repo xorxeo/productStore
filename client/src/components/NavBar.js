@@ -66,7 +66,9 @@ export const NavBar = observer(() => {
               <img className="w-h-7 h-7" src="../img/shopping-cart.png"></img>
             </button>
           </NavLink>
-
+          <div>
+            
+          </div>
           <div className="logout-wrapper flex ml-9">
             <NavLink to={SHOP_ROUTE}>
               <button

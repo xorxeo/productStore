@@ -5,7 +5,7 @@ import { Context } from "../index";
 import { PRODUCT_ROUTE } from "../utils/consts";
 import { Counter } from "./Counter";
 import { AddFirstProductItem } from "./AddFirstProductItem";
-import { PriceRange } from "./Filter/PriceRange";
+import { PriceRange } from "./filter/PriceRange";
 
 
 export const CategoryProducts = observer(() => {

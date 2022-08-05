@@ -12,11 +12,12 @@ export const BasketItem = observer(() => {
   useEffect(() => {
     basket.setProductItemsForCartFromGoods();
     basket.getGoodsForCartDoneFlag("productName", basket.goodsForCart);
+    // console.log("flag", basket.goodsForCartDoneFlag);
   }, [Object.values(basket.goods).length]);
 
   return (
     <div className="basket-modal flex md:w-[600px] sm:w-[400px] pt-16 pl-4 pr-4  cursor-default">
-      {basket.goodsForCart.length > 0 && basket.goodsForCartDoneFlag == "true" ? (
+      {basket.goodsForCart.length > 0 && basket.goodsForCartDoneFlag === true ? (
         <table className="table  ">
           <thead className="text-center">
             <tr className="">
